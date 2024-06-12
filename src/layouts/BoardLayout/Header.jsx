@@ -32,11 +32,16 @@ const Header = () => {
 
     const navigate = useNavigate()
 
+    const handleLogOut = () => {
+        localStorage.removeItem("userObj")
+        localStorage.removeItem("token")
+    }
+
   return (
     <div className='bg-[#fff] shadow-lg  flex  px-[24px] py-[18px] '>
 
-        <div className='w-full flex items-center justify-between '>
-            <div className='rounded-lg border border-[#E1E3E2] p-2 gap-2 w-[662px] flex items-center'>
+        <div className='w-full flex items-center gap-[350px] '>
+            <div className='rounded-lg border border-[#E1E3E2] p-2 gap-2 w-[462px] flex items-center'>
                 <img src={Search} alt='Search' />
                 <input 
                     type='type'
@@ -85,7 +90,7 @@ const Header = () => {
                                                 className={`block truncate ${
                                                 selected ? 'font-medium' : 'font-normal'
                                                 } text-[#052011]`}
-                                                onClick={() => navigate(item?.link)}
+                                                onClick={() => {navigate(item?.link), handleLogOut()}}
                                             >
                                                 {item.name}
                                             </div>

@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 
 import Header from './Header'
 import Sidebar from './Sidebar'
+import MiniHeader from './MiniHeader'
 
 
 const BoardLayout = () => {
@@ -10,14 +11,17 @@ const BoardLayout = () => {
 
   return (
     <div className='overflow-x-hidden flex w-full'>
-      <div className='w-[20%]  bg-[#fff] border fixed h-screen flex flex-col overflow-y-auto overflow-x-hidden'>
+      <div className='w-[20%] hidden  bg-[#fff] border fixed h-screen lg:flex flex-col overflow-y-auto overflow-x-hidden'>
           <Sidebar/>
       </div>
-      <div className='flex flex-col w-[85%] ml-[20%]'>
-          <div className='w-full bg-[#fff] h-[77px] border border-[#EBEEEF]'>
+      <div className='w-full flex flex-col lg:w-[85%] lg:ml-[20%]'>
+          <div className='hidden lg:block w-full bg-[#fff] h-[77px]  border border-[#EBEEEF]'>
               <Header />
           </div>
-          <div className='bg-[#FDFDFD] pb-[10px] pt-[21px] px-[24px] '>
+          <div className='xs:flex lg:hidden' >
+            <MiniHeader />
+          </div>
+          <div className='bg-[#FDFDFD] pb-[10px] pt-[21px] lg:px-[24px] '>
               <Outlet />
           </div>
       </div>

@@ -9,10 +9,12 @@ import Lock from "../../../../assets/svg/lock.svg"
 import Logo from "../../../../assets/svg/logo.svg"
 import { useDispatch } from 'react-redux';
 import { signUpUser } from '../../../../features/auth/signUpSlice';
+import { CgSpinner } from 'react-icons/cg';
 
 const Password = ({ setQuest }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -54,6 +56,7 @@ const Password = ({ setQuest }) => {
     });
 
     const submitForm = (values) => {
+        setLoading(true)
         const data = {
             "first_name": firstName,
             "last_name": lastName,
@@ -65,6 +68,7 @@ const Password = ({ setQuest }) => {
         }
         dispatch(signUpUser(data))
         .then((res) => {
+            setLoading(false)
             console.log(res, "apostle")
             if(res?.meta?.requestStatus === "fulfilled") {
                 setQuest(3)
@@ -182,7 +186,7 @@ const Password = ({ setQuest }) => {
                                         type="submit"
                                         // disabled={!isValid ? true : false}
                                     >
-                                        <p className='text-[#fff] text-base font-inter  text-center  font-medium'>Next</p>
+                                        <p className='text-[#fff] text-base font-inter  text-center  font-medium'>{loading ? <CgSpinner className=" animate-spin text-2xl " /> : "Next"}</p>
                                     </button>
 
                                     <p className='text-center font-inter text-base text-[#C6D2CA]' onClick={() => {navigate("/"); window.scrollTo(0, 0)}}>

@@ -5,6 +5,11 @@ import thunk from 'redux-thunk';
 
 import loginReducer from "../features/auth/loginSlice";
 import signUpReducer from "../features/auth/signUpSlice";
+import addProductReducer from "../features/products/addProductSlice";
+import getProductsReducer from "../features/products/getProductsSlice";
+import getCategoryReducer from "../features/categories/getCategorySlice";
+import getProfileReducer from "../features/profile/getProfileSlice";
+import updatePasswordReducer from "../features/profile/updatePasswordSlice";
 
 
 const persistConfig = {
@@ -15,6 +20,11 @@ const persistConfig = {
 const rootReducer = combineReducers({ 
     userLogin: loginReducer,
     userSignUp: signUpReducer,
+    addProducts: addProductReducer,
+    allProducts: getProductsReducer,
+    productCategories: getCategoryReducer,
+    getProfile: getProfileReducer,
+    updatePassword: updatePasswordReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

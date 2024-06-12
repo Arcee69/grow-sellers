@@ -1,5 +1,6 @@
-import React, {useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Empty from "../../assets/png/empty.png"
 import Show from "../../assets/png/show.png"
@@ -9,14 +10,27 @@ import Bin from "../../assets/png/bin.png"
 import Bag from "../../assets/svg/bag.svg" 
 import Filter from "../../assets/svg/filter.svg"
 import Search from "../../assets/svg/searchB.svg"
+import { fetchAllCategories } from '../../features/categories/getCategorySlice'
+import { fetchAllProducts } from '../../features/products/getProductsSlice'
 
 
 const Inventory = () => {
     const [text, setText] = useState("")
 
+    const dispatch = useDispatch()
+
     const handleChange = (e) => {
         setText(e.target.value)
     }
+
+    useEffect(() => {
+        dispatch(fetchAllCategories())
+        dispatch(fetchAllProducts())
+    }, [])
+
+    const allProducts = useSelector(state => state.allProducts)
+    console.log(allProducts, "allProducts")
+
 
     const navigate = useNavigate()
 
