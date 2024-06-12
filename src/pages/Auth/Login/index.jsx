@@ -11,6 +11,8 @@ import Logo from "../../../assets/svg/logo.svg"
 import Google from "../../../assets/svg/google.svg"
 import Mail from "../../../assets/svg/mail.svg"
 import Lock from "../../../assets/svg/lock.svg"
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../../features/auth/loginSlice';
 
 const Login = () => {
     const [loading, setLoading] = useState(false);
@@ -19,6 +21,8 @@ const Login = () => {
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
       };
+
+      const dispatch = useDispatch()
 
       const navigate = useNavigate()
 
@@ -49,32 +53,31 @@ const Login = () => {
     })
 
     const submitForm = (values) => {
-        if(values) {
-            toast.success('Login Successfully', {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            navigate("/dashboard")
+        setLoading(true)
+        const data = {
+            "email": values?.email,
+            "password": values?.password
         }
+        dispatch(loginUser(data))
+        .then((res) => {
+            if(res?.meta?.requestStatus === "fulfilled") {
+                setLoading(false)
+                navigate("/dashboard")
+            }
+        })
     }
 
   return (
     <div className='my-[50px]'>
-        <div className='w-[531px] h-[600px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
-            <div className='flex justify-between items-center pl-6 pr-[52px] mb-5 '>
+        <div className='lg:w-[531px] h-[600px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
+            <div className='hidden lg:flex justify-between items-center pl-6 pr-[52px] mb-5 '>
                 <div className='w-[36px] h-[36px] bg-[#F8FAFC] flex items-center justify-center'>
                     <IoChevronBack />
                 </div>
                 <img src={Logo} alt='Logo' className='w-[47px] h-[34px]' />
             </div>
             <hr />
-            <div className='flex flex-col px-[52px] mt-5 '>
+            <div className='flex flex-col px-5 lg:px-[52px] mt-5 '>
                 <p className='font-inter text-[#09111D] text-[24px] font-medium'>Sign in</p>
 
                 <div className='mt-[32px] w-full'>
@@ -123,7 +126,7 @@ const Login = () => {
                                 </div>
 
                                 <div className="flex flex-col items-start w-full">
-                                    <div className='flex items-center justify-between'>
+                                    <div className='w-full flex items-center justify-between'>
                                         <label htmlFor='password' className="text-base font-inter text-[#09111D]">Password</label>
                                         <p className='text-[13px] font-inter text-[#27AE60] cursor-pointer'>Forgot Password?</p>
                                     </div>

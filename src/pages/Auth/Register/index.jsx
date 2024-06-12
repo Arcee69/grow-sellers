@@ -17,9 +17,9 @@ const Register = () => {
     <>
         {quest === 1 && <SignUp setQuest={setQuest} />}
         {quest === 2 && <Password setQuest={setQuest} />}
-        {quest === 3 && <Region setQuest={setQuest} />}
-        {quest === 4 && <Verify setQuest={setQuest} />}
-        {/* {quest === 5 && <VerifyB setQuest={setQuest} />} */}
+        {/* {quest === 3 && <Region setQuest={setQuest} />} */}
+        {quest === 3 && <Verify setQuest={setQuest} />}
+        {quest === 4 && <VerifyB setQuest={setQuest} />}
         {quest === 5 && <Congratulations setQuest={setQuest} />}
     </>
   )

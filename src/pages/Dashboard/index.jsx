@@ -5,9 +5,15 @@ import Padlock from "../../assets/svg/padlock.svg"
 import LongMenu from "../../assets/svg/longmenu.svg"
 
 import Empty from "../../assets/png/empty.png"
+import { useSelector } from 'react-redux'
 
 
 const Dashboard = () => {
+
+  const userLogin = useSelector(state => state.userLogin)
+  console.log(userLogin, "mask")
+
+  const userData = userLogin?.data?.data
 
 
   const data = [
@@ -120,7 +126,7 @@ const Dashboard = () => {
       <div className='border border-[#D9E4ED] bg-[#fff] rounded-xl flex flex-col gap-4 p-4 '>
         <div className='flex justify-between'>
             <div className='flex flex-col gap-1.5'> 
-              <p className='text-[#09111D] text-[24px] font-semibold font-inter'>Welcome Solomon</p>
+              <p className='text-[#09111D] text-[24px] font-semibold font-inter'>Welcome {userData?.first_name}</p>
               <p className='text-[18px] font-inter text-[#8B9298]'>It’s a sunny day today, we want you to make more sales today!</p>
             </div>
             <div className='border border-[#D9E4ED] rounded-lg w-[190px] h-[74px] flex justify-between p-4 items-center'>
