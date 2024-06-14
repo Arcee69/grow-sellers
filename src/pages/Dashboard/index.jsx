@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
 
 import Padlock from "../../assets/svg/padlock.svg"
 import LongMenu from "../../assets/svg/longmenu.svg"
 
 import Empty from "../../assets/png/empty.png"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAnalytics } from '../../features/analytics/getAnalyticsSlice'
 
 
 const Dashboard = () => {
@@ -13,7 +14,16 @@ const Dashboard = () => {
   const userLogin = useSelector(state => state.userLogin)
   console.log(userLogin, "mask")
 
+  const dispatch = useDispatch()
+
   const userData = userLogin?.data?.data
+
+  useEffect(() => {
+    dispatch(fetchAnalytics())
+  }, [])
+
+  const getAnalytics = useSelector(state => state.getAnalytics)
+  console.log(getAnalytics, "getAnalytics")
 
 
   const data = [
@@ -149,7 +159,7 @@ const Dashboard = () => {
                 </div>
                 <div className='flex flex-col gap-1'>
                   <p className='text-[#8B9298] font-inter text-base'>Total Sales</p>
-                  <p className='text-[#09111D] text-[24px] font-inter'>5000</p>
+                  <p className='text-[#09111D] text-[24px] font-inter'>{getAnalytics?.data?.totalItemOrders}</p>
                 </div>
               </div>
             </div>
@@ -161,7 +171,7 @@ const Dashboard = () => {
                 </div>
                 <div className='flex flex-col gap-1'>
                   <p className='text-[#8B9298] font-inter text-base'>Fulfilled Orders</p>
-                  <p className='text-[#09111D] text-[24px] font-inter'>384</p>
+                  <p className='text-[#09111D] text-[24px] font-inter'>{getAnalytics?.data?.totalItemOrders}</p>
                 </div>
               </div>
             </div>
@@ -173,7 +183,7 @@ const Dashboard = () => {
                 </div>
                 <div className='flex flex-col gap-1'>
                   <p className='text-[#8B9298] font-inter text-base'>Returned Orders</p>
-                  <p className='text-[#09111D] text-[24px] font-inter'>384</p>
+                  <p className='text-[#09111D] text-[24px] font-inter'>{getAnalytics?.data?.returnedOrders}</p>
                 </div>
               </div>
             </div>
@@ -185,7 +195,7 @@ const Dashboard = () => {
                 </div>
                 <div className='flex flex-col gap-1'>
                   <p className='text-[#8B9298] font-inter text-base'>Shipped Orders</p>
-                  <p className='text-[#09111D] text-[24px] font-inter'>20</p>
+                  <p className='text-[#09111D] text-[24px] font-inter'>{getAnalytics?.data?.nonReturnedOrders}</p>
                 </div>
               </div>
             </div>

@@ -23,13 +23,19 @@ const Inventory = () => {
         setText(e.target.value)
     }
 
+
+
+    useEffect(() => {
+        dispatch(fetchAllProducts(text))
+    }, [text])
+
     useEffect(() => {
         dispatch(fetchAllCategories())
-        dispatch(fetchAllProducts())
     }, [])
 
     const allProducts = useSelector(state => state.allProducts)
     console.log(allProducts, "allProducts")
+    const products = allProducts?.data?.data?.products
 
 
     const navigate = useNavigate()
@@ -83,11 +89,11 @@ const Inventory = () => {
     ]
 
   return (
-    <div className='w-full flex flex-col gap-[24px]'>
-        <div className='flex items-center justify-between'>
+    <div className='w-full flex flex-col mt-10 lg:mt-0 lg:px-0 px-5 gap-[24px]'>
+        <div className='flex flex-col lg:flex-row lg:items-center justify-between'>
             <div className='flex flex-col gap-[8px]'>
                 <p className='text-[24px] font-manrope font-semibold '>Products</p>
-                <p className='font-manrope text-[#BDC1C0] text-sm '>Manage all your Products</p>
+                <p className='font-manrope text-[#BDC1C0] hidden lg:flex text-sm '>Manage all your Products</p>
             </div>
             <button className='flex items-center gap-2 w-[176px] h-[56px] py-5 px-6 rounded-lg bg-[#009254]'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
@@ -98,8 +104,8 @@ const Inventory = () => {
             </button>
         </div>
 
-        <div className='flex items-center gap-3'>
-            <div className='w-[826px] h-[54px] p-2.5 justify-between flex items-center border border-[#D0D5DD] rounded-lg gap-2'>
+        <div className='flex flex-col lg:flex-row lg:items-center gap-3'>
+            <div className='w-full lg:w-[826px] h-[54px] p-2.5 justify-between flex items-center border border-[#D0D5DD] rounded-lg gap-2'>
                 <input 
                     className='outline-none text-[#667085] text-base font-inter bg-transparent '
                     name='filter'
@@ -117,8 +123,8 @@ const Inventory = () => {
             </div>
         </div>
 
-        <>
-            <table className='w-full'>
+        <div className='overflow-x-auto'>
+            <table className='w-full '>
                 <tr className='h-[48px] bg-[#F9FAFB] rounded-lg'>
                     <th className="font-semibold font-inter text-[#667085] px-4 text-[12px] text-left">
                         Product Name
@@ -142,7 +148,7 @@ const Inventory = () => {
                         Action
                     </th>
                 </tr>
-                {data?.length > 1 ? data?.map((item, index) => (
+                {products?.length > 0 ? products?.map((item, index) => (
                     <tr key={index} className='bg-white h-[56px] border-t cursor-pointer border-grey-100'>
                         <td className='h-[70px] px-4'>
                             <p className='text-sm font-inter text-[#101828] text-left'>{item?.name}</p> 
@@ -151,17 +157,17 @@ const Inventory = () => {
                             <p className='text-sm font-inter text-[#8D9290] text-left'>{item?.inventory}</p>
                         </td>
                         <td className='h-[70px] px-4'>
-                            <p className='text-sm font-inter text-[#8D9290] text-left'>{item?.price}</p>
+                            <p className='text-sm font-inter text-[#8D9290] text-left'>₦{item?.unit_price}</p>
                         </td>
                         <td className='h-[70px] px-4'>
-                            <p className='text-sm font-inter text-[#8D9290] text-left'>{item?.sales}</p>
+                            <p className='text-sm font-inter text-[#8D9290] text-left'>{item?.sales_number || 0}</p>
                         </td>
                         <td className='h-[70px] px-4'>
-                            <p className='text-sm font-inter text-[#8D9290] text-left'>{item?.category}</p>
+                            <p className='text-sm font-inter text-[#8D9290] text-left'>{item?.category?.name}</p>
                         </td>
                         <td className='h-[70px] px-4'>
-                            <div className={`rounded-xl h-[22px] w-[90px] flex justify-center items-center ${item.status === 'Inactive' && ' bg-[#FFDCDC]'} ${item.status === 'Out of Stock' && ' bg-[#FEF6E7]'} ${item.status === 'Hidden' && ' bg-[#FBEAE9]'} ${item.status === 'In Stock' && 'bg-[#ECFDF3]'}`}>
-                                <p className={`text-xs font-medium font-manrope ${item.status === 'Inactive' && 'text-[#E53535]'} ${item.status === 'Out of Stock' && 'text-[#865503]'} ${item.status === 'Hidden' && 'text-[#9E0A05]'}  ${item.status === 'In Stock' && 'text-[#027A48]'} `}>{item?.status}</p> {/* {data.status} */}
+                            <div className={`rounded-xl h-[22px] w-[90px] flex justify-center items-center ${!item.status === 'Inactive'  && ' bg-[#FFDCDC]'} ${!item.status && ' bg-[#FEF6E7]'} ${item.status === 'Hidden' && ' bg-[#FBEAE9]'} ${item.status  && 'bg-[#ECFDF3]'}`}>
+                                <p className={`text-xs font-medium font-manrope ${item.status === 'Inactive' && 'text-[#E53535]'} ${!item.status  && 'text-[#865503]'} ${item.status === 'Hidden' && 'text-[#9E0A05]'}  ${item.status  && 'text-[#027A48]'} `}>{item?.status ? "In Stock" : "Out of Stock"}</p> {/* {data.status} */}
                             </div>
                         </td> 
                         <td className='h-[70px] px-4'>
@@ -186,7 +192,7 @@ const Inventory = () => {
                     )}
             </table>
             <div className='flex items-center border border-x-0 border-t bg-[#fff] px-4 py-4 justify-between'>
-                <p className='text-[#344054] font-manrope font-medium'>Page 1 of 10</p>
+                <p className='text-[#344054] font-manrope font-medium'>Page 1 of 1</p>
 
                 <div className='flex items-center gap-3'>
                     <button className='w-[85px] h-[36px] flex items-center border border-[#D0D5DD] rounded-lg justify-center'>
@@ -198,7 +204,7 @@ const Inventory = () => {
                 </div>
                 
             </div>
-        </>
+        </div>
        
 
     </div>

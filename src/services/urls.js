@@ -15,6 +15,12 @@ export const appUrls = {
     UPDATE_PASSWORD_URL: "/user/change-password",
     CLOSE_STORE_URL: "/user/store/close",
     OPEN_STORE_URL: "/user/store/open",
+
+    //ORDERS ENDPOINT
+    FETCH_ORDERS_URL: "/orders",
+
+    //ANALYTICS ENDPOINT
+    FETCH_ANALYTICS_URL: "/analytics/seller"
     
 
 };

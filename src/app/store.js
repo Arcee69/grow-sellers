@@ -10,6 +10,8 @@ import getProductsReducer from "../features/products/getProductsSlice";
 import getCategoryReducer from "../features/categories/getCategorySlice";
 import getProfileReducer from "../features/profile/getProfileSlice";
 import updatePasswordReducer from "../features/profile/updatePasswordSlice";
+import getOrdersReducer from "../features/orders/getOrdersSlice";
+import getAnalyticsReducer from "../features/analytics/getAnalyticsSlice";
 
 
 const persistConfig = {
@@ -24,7 +26,9 @@ const rootReducer = combineReducers({
     allProducts: getProductsReducer,
     productCategories: getCategoryReducer,
     getProfile: getProfileReducer,
-    updatePassword: updatePasswordReducer
+    updatePassword: updatePasswordReducer,
+    allOrders: getOrdersReducer,
+    getAnalytics: getAnalyticsReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

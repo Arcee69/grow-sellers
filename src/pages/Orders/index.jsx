@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Filter from "../../assets/svg/filter.svg"
 import Search from "../../assets/svg/searchB.svg"
@@ -8,10 +8,15 @@ import Processing from './components/Processing'
 import Shipped from './components/Shipped'
 import Delivered from './components/Delivered'
 import Cancelled from './components/Cancelled'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAllOrders } from '../../features/orders/getOrdersSlice'
 
 const Orders = () => {
     const [activeTab, setActiveTab] = useState("All Order")
     const [text, setText] = useState("")
+
+
+    const dispatch = useDispatch()
 
     const handleChangeTab = (value) => {
         setActiveTab(value)
@@ -21,11 +26,20 @@ const Orders = () => {
         setText(e.target.value)
     }
 
+    const userLogin = useSelector(state => state.userLogin)
+    console.log(userLogin, "userLogin")
+    const id = userLogin?.data?.data?.id
+    console.log(id, 'id')
+
+    useEffect(() => {
+        dispatch(fetchAllOrders(id))
+    },[])
+
 
 
 
   return (
-    <div className='w-full flex flex-col gap-[24px]'>
+    <div className='w-full flex flex-col gap-[24px] px-5 mt-10 lg:mt-0 lg:px-0'>
         <div className='flex flex-col gap-[8px]'>
             <p className='text-[24px] font-manrope font-semibold '>Order History</p>
             <p className='font-manrope text-[#BDC1C0] text-sm '>Manage all your Orders</p>
@@ -68,14 +82,14 @@ const Orders = () => {
                 Cancelled
             </p> */}
         </div>
-        <div className='flex flex-col gap-3 '>
-            <div className='flex items-center gap-3'>
-                <div className='w-[826px] h-[44px] p-2.5 justify-between flex items-center border border-[#D0D5DD] rounded-lg gap-2'>
+        <div className='flex flex-col gap-3 overflow-x-auto'>
+            <div className='flex lg:flex-row flex-col lg:items-center gap-3'>
+                <div className='w-full lg:w-[826px] h-[44px] p-2.5 justify-between flex items-center border border-[#D0D5DD] rounded-lg gap-2'>
                     <input 
                         className='outline-none text-[#667085] text-base font-inter bg-transparent '
                         name='filter'
                         type='text'
-                        placeholder='Search for products'
+                        placeholder='Search for orders'
                         value={text}
                         onChange={(e) => handleChange(e)}
                     />

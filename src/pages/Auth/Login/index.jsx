@@ -63,8 +63,11 @@ const Login = () => {
             if(res?.meta?.requestStatus === "fulfilled") {
                 setLoading(false)
                 navigate("/dashboard")
+            } else {
+                setLoading(false)
             }
         })
+       
     }
 
   return (
