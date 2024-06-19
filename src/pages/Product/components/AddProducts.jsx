@@ -8,6 +8,7 @@ import { appUrls } from '../../../services/urls'
 import { IoIosArrowDown } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux'
 import { createProducts } from '../../../features/products/addProductSlice'
+import { CgSpinner } from 'react-icons/cg'
 
 
 
@@ -23,6 +24,7 @@ const AddProducts = () => {
   const [productColor, setProductColor] = useState("")
   const [price, setPrice] = useState(0)
   const [discount, setDiscount] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   const [thumbImage, setThumbImage] = useState(null)
 
@@ -72,6 +74,7 @@ const AddProducts = () => {
   };
 
   const submitForm = () => {
+    setLoading(true)
     const formData = new FormData()
     formData.append("name", productName)
     formData.append("category_id", selected?.id)
@@ -87,6 +90,9 @@ const AddProducts = () => {
     formData.append("thumbnail", thumbImage)
 
     dispatch(createProducts(formData))
+    .then((res) => {
+      setLoading(false)
+    })
 
   }
 
@@ -417,7 +423,7 @@ const AddProducts = () => {
 
         <div className='flex flex-col gap-2 mt-6'>
           <button className='w-full flex items-center justify-center bg-[#27A376] h-[60px] rounded-lg' onClick={() => submitForm()}>
-            <p className='text-[#fff] font-inter text-[18px]'>Save</p>
+            <p className='text-[#fff] text-base font-inter text-[18px] text-center  font-medium'>{loading ? <CgSpinner className=" animate-spin text-2xl " /> : "Save"}</p>
           </button>
           <button className='w-full flex items-center justify-center border border-[#C00000] h-[60px] rounded-lg'>
             <p className='text-[#C00000] font-inter text-[18px]'>Cancel</p>
