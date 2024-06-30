@@ -16,6 +16,9 @@ import { fetchAllProducts } from '../../features/products/getProductsSlice'
 
 const Inventory = () => {
     const [text, setText] = useState("")
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+    const [currentData, setCurrentData] = useState([]);
 
     const dispatch = useDispatch()
 
@@ -39,68 +42,34 @@ const Inventory = () => {
 
 
     const navigate = useNavigate()
-
-    const data = [
-        {
-            inventory: 145,
-            name: "Product A",
-            sales: 123,
-            category: "Clothing",
-            price: "₦100,000",
-       
-            status: "In Stock"
-        },
-        {
-            name: "Product B",
-            inventory: 30,
-            sales: 64,
-            category: "Furniture",
-            price: "₦100,000",
-          
-            status: "Out of Stock"
-        },
-        {
-            name: "Product C",
-            inventory: 40,
-            sales: 236,
-            category: "Stationery",
-            price: "₦100,000",
-
-            status: "Inactive"
-        },
-        {
-            name: "Product D",
-            inventory: 6,
-            sales: 1043,
-            category: "Clothing",
-            price: "₦100,000",
-      
-            status: "Hidden"
-        },
-        {
-            name: "Product E",
-            inventory: 7,
-            sales: "Guy Hawkins",
-            category: 1022,
-            price: "₦100,000",
-       
-            status: "In Stock"
-        },
-    ]
+  
+    const totalPages = Math.ceil(products.length / itemsPerPage);
+  
+    useEffect(() => {
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      setCurrentData(products?.slice(startIndex, endIndex));
+    }, [currentPage, products]);
+  
+    const handlePageChange = (newPage) => {
+      if (newPage > 0 && newPage <= totalPages) {
+        setCurrentPage(newPage);
+      }
+    };
 
   return (
     <div className='w-full flex flex-col mt-10 lg:mt-0 lg:px-0 px-5 gap-[24px]'>
-        <div className='flex flex-col lg:flex-row lg:items-center justify-between'>
+        <div className='flex flex-row items-center  mt-5 lg:mt-0 justify-between'>
             <div className='flex flex-col gap-[8px]'>
-                <p className='text-[24px] font-manrope font-semibold '>Products</p>
+                <p className='text-base lg:text-[24px] font-manrope font-semibold '>Products</p>
                 <p className='font-manrope text-[#BDC1C0] hidden lg:flex text-sm '>Manage all your Products</p>
             </div>
-            <button className='flex items-center gap-2 w-[176px] h-[56px] py-5 px-6 rounded-lg bg-[#009254]'>
+            <button className='flex items-center gap-2 w-[130px] lg:w-[176px] h-[56px] lg:py-5 px-2 lg:px-6 rounded-lg bg-[#009254]'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10 3.83325C10.4603 3.83325 10.8334 4.20635 10.8334 4.66659V16.3333C10.8334 16.7935 10.4603 17.1666 10 17.1666C9.5398 17.1666 9.16671 16.7935 9.16671 16.3333V4.66659C9.16671 4.20635 9.5398 3.83325 10 3.83325Z" fill="white"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M3.33337 10.4999C3.33337 10.0397 3.70647 9.66658 4.16671 9.66658H15.8334C16.2936 9.66658 16.6667 10.0397 16.6667 10.4999C16.6667 10.9602 16.2936 11.3333 15.8334 11.3333H4.16671C3.70647 11.3333 3.33337 10.9602 3.33337 10.4999Z" fill="white"/>
                 </svg>
-                <p onClick={() => navigate("/add-product")} className='font-manrope font-bold text-base text-[#fff]'>Add Product</p>
+                <p onClick={() => navigate("/add-product")} className='font-manrope font-bold text-sm lg:text-base text-[#fff]'>Add Product</p>
             </button>
         </div>
 
@@ -125,7 +94,7 @@ const Inventory = () => {
 
         <div className='overflow-x-auto'>
             <table className='w-full '>
-                <tr className='h-[48px] bg-[#F9FAFB] rounded-lg'>
+                <tr className='h-[48px] w-full bg-[#F9FAFB] whitespace-nowrap rounded-lg'>
                     <th className="font-semibold font-inter text-[#667085] px-4 text-[12px] text-left">
                         Product Name
                     </th>
@@ -148,8 +117,8 @@ const Inventory = () => {
                         Action
                     </th>
                 </tr>
-                {products?.length > 0 ? products?.map((item, index) => (
-                    <tr key={index} className='bg-white h-[56px] border-t cursor-pointer border-grey-100'>
+                {currentData?.length > 0 ? currentData?.map((item, index) => (
+                    <tr key={index} className='bg-white w-full whitespace-nowrap h-[56px] border-t cursor-pointer border-grey-100'>
                         <td className='h-[70px] px-4'>
                             <p className='text-sm font-inter text-[#101828] text-left'>{item?.name}</p> 
                         </td>
@@ -191,14 +160,14 @@ const Inventory = () => {
                         </tr>
                     )}
             </table>
-            <div className='flex items-center border border-x-0 border-t bg-[#fff] px-4 py-4 justify-between'>
-                <p className='text-[#344054] font-manrope font-medium'>Page 1 of 1</p>
+            <div className='flex w-auto items-center border border-x-0 border-t bg-[#fff] px-4 py-4 justify-between'>
+                <p className='text-[#344054] font-manrope font-medium'>Page {currentPage} of {totalPages}</p>
 
                 <div className='flex items-center gap-3'>
-                    <button className='w-[85px] h-[36px] flex items-center border border-[#D0D5DD] rounded-lg justify-center'>
+                    <button type='button' onClick={() => handlePageChange(currentPage - 1)} className='w-[85px] h-[36px] flex items-center border border-[#D0D5DD] rounded-lg justify-center'>
                         <p className='text-[#344054] font-medium text-sm font-manrope'>Previous</p>
                     </button>
-                    <button className='w-[85px] h-[36px] flex items-center border border-[#D0D5DD] rounded-lg justify-center'>
+                    <button type='button' onClick={() => handlePageChange(currentPage + 1)} className='w-[85px] h-[36px] flex items-center border border-[#D0D5DD] rounded-lg justify-center'>
                         <p className='text-[#344054] font-medium text-sm font-manrope'>Next</p>
                     </button>
                 </div>

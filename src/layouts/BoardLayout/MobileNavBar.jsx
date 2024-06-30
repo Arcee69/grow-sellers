@@ -14,20 +14,12 @@ const MobileNavBar = ({ handleClose}) => {
                 <img src={Close} alt="close" className="cursor-pointer" onClick={handleClose}/>
             </div>
             <ul class="mt-[32px] flex flex-col gap-y-[24px] pb-[16px]">
-                <a href='#solutions' onClick={() => handleClose()} className="font-inter font-medium text-[17px]  text-[#fff]">Solutions</a>
-                <li onClick={() => { handleClose()}} className="font-inter font-medium text-base  text-[#fff]">Why Synergyy</li>
-
-                <li onClick={() => { handleClose()}} className="font-inter font-medium text-base  text-[#fff]">For Job Seekers</li>
+            <li onClick={() => {navigate("/dashboard"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Dashboard</li>
+                <li onClick={() => {navigate("/inventory"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Inventory</li>
+                <li onClick={() => {navigate("/orders"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Orders</li>
+                <li onClick={() => {navigate("/sales"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Sales</li>
+                <li onClick={() => {navigate("/settings"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Settings</li>
             </ul>
-            <div className=" flex flex-col gap-4 mt-[32px]">
-       
-                <button
-                    onClick={() => {navigate("/register"); handleClose()}} 
-                    className="p-[9.6px] w-full rounded-[4.8px] text-[#fff] font-inter bg-[#52BC77] border border-[#FFF] text-[16px] font-semibold"
-                >
-                    Sign Up
-                </button>
-            </div>
         </div>
     </div>
   )

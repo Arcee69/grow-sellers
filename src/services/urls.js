@@ -19,6 +19,9 @@ export const appUrls = {
     //ORDERS ENDPOINT
     FETCH_ORDERS_URL: "/orders",
 
+    // TRANSACTION ENDPOINT
+    TRANSACTION_URL: "/transactions/user",
+
     //ANALYTICS ENDPOINT
     FETCH_ANALYTICS_URL: "/analytics/seller"
     

@@ -9,6 +9,7 @@ import { IoIosArrowDown } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux'
 import { createProducts } from '../../../features/products/addProductSlice'
 import { CgSpinner } from 'react-icons/cg'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -49,6 +50,8 @@ const AddProducts = () => {
   const [selected, setSelected] = useState(categories[0])
 
   console.log(selected, "selected[0]")
+
+  const navigate = useNavigate()
 
 
   //For Product Images
@@ -91,7 +94,10 @@ const AddProducts = () => {
 
     dispatch(createProducts(formData))
     .then((res) => {
-      setLoading(false)
+      if(res) {
+        setLoading(false)
+        navigate("/dashboard")
+      }
     })
 
   }

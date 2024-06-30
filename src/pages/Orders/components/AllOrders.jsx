@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import Empty from "../../../assets/png/empty.png"
 
 const AllOrders = () => {
+    const [text, setText] = useState("")
 
+    const handleChange = (e) => {
+        setText(e.target.value)
+    }
 
     const allOrders = useSelector(state => state.allOrders)
     console.log(allOrders, "allOrders")
@@ -53,7 +57,7 @@ const AllOrders = () => {
         
         <>
             <table className='w-full'>
-                <tr className='h-[48px] bg-[#F9FAFB] rounded-lg'>
+                <tr className='h-[48px] bg-[#F9FAFB] whitespace-nowrap rounded-lg'>
                     <th className="font-semibold font-inter text-[#667085] px-4 text-[12px] text-left">
                         Order iD
                     </th>
@@ -66,32 +70,33 @@ const AllOrders = () => {
                     <th className="font-semibold font-inter text-[#667085] px-4 text-[12px] text-left">
                         Total Amount
                     </th>
-                    {/* <th className="font-semibold font-inter text-[#667085] px-4 text-[12px] text-left">
-                    Status
-                    </th> */}
+                    <th className="font-semibold font-inter text-[#667085] px-4 text-[12px] text-left">
+                        Status
+                    </th>
                 </tr>
                 {data?.length > 0 ? data?.map((item, index) => (
-                    <tr key={index} className='bg-white h-[56px] border-t cursor-pointer border-grey-100'>
+                    <tr key={index} className='bg-white h-[56px] border-t whitespace-nowrap cursor-pointer border-grey-100'>
                         <td className='h-[70px] px-4'>
                             <div className='flex flex-col'>
-                                <p className='text-sm font-manrope font-medium text-[#101828] text-left'>{item?.id}</p> 
-                                <p className='font-inter text-[#667185] text-xs'>{item?.orderItems}</p>
+                                <p className='text-sm font-manrope font-medium text-[#101828] text-left'>#{item?.id?.slice(0, 8)}</p> 
+                                {/* <p className='font-inter text-[#667185] text-xs'>{item?.orderItems}</p> */}
                             </div>
                         </td>
-                        <td className='h-[70px] px-4'>
-                            <p className='text-sm font-manrope text-[#8D9290] text-left'>{item?.dateAndTime}</p>
+                        <td className='h-[70px] flex items-center gap-2 px-4'>
+                            <p className='text-sm font-manrope text-[#8D9290] text-left'>{new Date(item?.created_at).toLocaleDateString() }</p>
+                            <p className='text-sm font-manrope text-[#8D9290] text-left'>{new Date(item?.created_at).toLocaleTimeString() }</p>
                         </td>
                         <td className='h-[70px] px-4'>
                             <p className='text-sm font-manrope text-[#8D9290] text-left'>{item?.name}</p>
                         </td>
                         <td className='h-[70px] px-4'>
-                            <p className='text-sm font-manrope text-[#8D9290] text-left'>{item?.amount}</p>
+                            <p className='text-sm font-manrope text-[#8D9290] text-left'>{item?.total_amount}</p>
                         </td>
-                        {/* <td className='h-[70px] px-4'>
-                            <div className={`rounded-xl h-[22px] w-[77px] flex justify-center items-center ${item.status === 'Cancelled' && ' bg-[#FFDCDC]'} ${item.status === 'Processing' && ' bg-[#FEF7EB]'} ${item.status === 'Shipped' && 'bg-[#ECFDF3]'}`}>
-                                <p className={`text-xs font-medium font-manrope ${item.status === 'Cancelled' && 'text-[#E53535]'} ${item.status === 'Processing' && 'text-[#F5A623]'} ${item.status === 'Shipped' && 'text-[#027A48]'} `}>{item?.status}</p> {/* {data.status
+                        <td className='h-[70px] px-4'>
+                            <div className={`rounded-xl h-[22px] w-[77px] flex justify-center items-center ${item.status === 'Cancelled' && ' bg-[#FFDCDC]'} ${item.status === 'pending' && ' bg-[#FEF7EB]'} ${item.status === 'Shipped' && 'bg-[#ECFDF3]'}`}>
+                                <p className={`text-xs font-medium font-manrope ${item.status === 'Cancelled' && 'text-[#E53535]'} ${item.status === 'pending' && 'text-[#F5A623]'} ${item.status === 'Shipped' && 'text-[#027A48]'} `}>{item?.status}</p> {/* {data.status */}
                             </div>
-                        </td>         */}
+                        </td>        
                         
                     </tr>
                     )) : (

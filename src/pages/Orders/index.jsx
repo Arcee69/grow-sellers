@@ -33,15 +33,15 @@ const Orders = () => {
 
     useEffect(() => {
         dispatch(fetchAllOrders(id))
-    },[])
+    },[text])
 
 
 
 
   return (
     <div className='w-full flex flex-col gap-[24px] px-5 mt-10 lg:mt-0 lg:px-0'>
-        <div className='flex flex-col gap-[8px]'>
-            <p className='text-[24px] font-manrope font-semibold '>Order History</p>
+        <div className='flex flex-col mt-5 lg:mt-0 gap-[8px]'>
+            <p className='text-base lg:text-[24px] font-manrope font-semibold '>Order History</p>
             <p className='font-manrope text-[#BDC1C0] text-sm '>Manage all your Orders</p>
         </div>
         <div className='flex items-center gap-4 mt-[10px]'>

@@ -169,14 +169,17 @@ const Login = () => {
                                         <img src={Logo} alt='Logo' className='w-[25px] h-[18px]' />
                                         <p className='text-[#fff] text-base font-inter  text-center  font-medium'>{loading ? <CgSpinner className=" animate-spin text-2xl " /> : "Log in to GrowAfrica"}</p>
                                     </button>
+                                        
+                                    <p className='text-base text-[#09111D] text-center font-inter'>Don't have an Account? <span className='text-[#52BC77] cursor-pointer' onClick={() => navigate("/register")}>Sign Up</span></p>
+
                                     
-                                    <button
+                                    {/* <button
                                         className='border border-[#D9E4ED] rounded-lg h-[56px] w-full flex items-center gap-3 justify-center p-3 cursor-pointer'
                                         type='button'
                                     >
                                         <img src={Google} alt='google'/>
                                         <p className='text-[#09111D] text-base font-inter font-semibold'>Sign with Google</p>
-                                    </button>
+                                    </button> */}
                                 </div>
 
                               
