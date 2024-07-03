@@ -43,7 +43,7 @@ const Inventory = () => {
 
     const navigate = useNavigate()
   
-    const totalPages = Math.ceil(products.length / itemsPerPage);
+    const totalPages = Math.ceil(products?.length / itemsPerPage);
   
     useEffect(() => {
       const startIndex = (currentPage - 1) * itemsPerPage;

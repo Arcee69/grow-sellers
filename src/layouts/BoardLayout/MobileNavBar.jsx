@@ -6,6 +6,12 @@ import { useNavigate } from 'react-router-dom'
 
 const MobileNavBar = ({ handleClose}) => {
     const navigate = useNavigate()
+
+    const handleLogOut = () => {
+        localStorage.removeItem("userObj")
+        localStorage.removeItem("token")
+    }
+    
   return (
     <div className="fixed top-0 w-[100%] left-0 h-[100vh] animate__animated  animate__bounceInDown animate__slow" style={{zIndex: 9999}}>
         <div className="bg-[#fff] w-[100%] h-full absolute px-5 py-[32px] right-0 top-0"> 
@@ -14,11 +20,12 @@ const MobileNavBar = ({ handleClose}) => {
                 <img src={Close} alt="close" className="cursor-pointer" onClick={handleClose}/>
             </div>
             <ul class="mt-[32px] flex flex-col gap-y-[24px] pb-[16px]">
-            <li onClick={() => {navigate("/dashboard"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Dashboard</li>
+                <li onClick={() => {navigate("/dashboard"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Dashboard</li>
                 <li onClick={() => {navigate("/inventory"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Inventory</li>
                 <li onClick={() => {navigate("/orders"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Orders</li>
                 <li onClick={() => {navigate("/sales"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Sales</li>
                 <li onClick={() => {navigate("/settings"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Settings</li>
+                <li onClick={() => {handleLogOut(); handleClose()}} className="font-inter font-medium text-base text-[#333]">Log Out</li>
             </ul>
         </div>
     </div>

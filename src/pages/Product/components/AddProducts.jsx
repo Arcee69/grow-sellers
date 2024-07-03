@@ -118,20 +118,13 @@ const AddProducts = () => {
                       userImage?.name ? 
                           <div className='flex flex-col gap-1'>
                             <img alt="upload" width={"200px"} height={"100px"} className='' src={URL.createObjectURL(userImage)} />
-                              {/* <div className='flex items-center justify-between'>
-                                  <p className='text-[15px] font-hanken text-[#858585]'>{userImage?.name}</p>
-                                  <p className='text-[#000] text-[11px]'>Completed</p>
-                              </div> */}
-                              {/* <div className='w-[150px] h-[5px] bg-[#51E38B] rounded-lg'></div> */}
                           </div> 
                           :
-                          <div className='flex flex-col items-center gap-[16px]'>
-                              <img src={Upload} alt='upload' className='w-[56px] h-[56px]' />
-                              
-                            
+                          <div className='flex flex-col items-center'>
                               <label htmlFor="fileInput" className='cursor-pointer flex justify-center items-center   '>
-                                <div className='flex flex-col w-full'>
-                                    <p className='text-sm font-semibold font-inter whitespaace-nowrap text-[#52BC77]'>
+                                <div className='flex flex-col items-center w-full'>
+                                  <img src={Upload} alt='upload' className='w-[56px] h-[56px]' />
+                                    <p className='text-sm font-semibold font-inter whitespaace-nowrap mt-4 text-[#52BC77]'>
                                         Click here <span className='text-[#475367]'>or drag and drop to upload</span>
                                     </p>
                                     <p className='text-xs text-center font-medium text-[#98A2B3]'>SVG, PNG, JPG or GIF (max. 800x300px)</p>
@@ -154,20 +147,13 @@ const AddProducts = () => {
                       userImageB?.name ? 
                           <div className='flex flex-col gap-1'>
                             <img alt="upload" width={"200px"} height={"100px"} className='' src={URL.createObjectURL(userImageB)} />
-                              {/* <div className='flex items-center justify-between'>
-                                  <p className='text-[15px] font-hanken text-[#858585]'>{userImageB?.name}</p>
-                                  <p className='text-[#000] text-[11px]'>Completed</p>
-                              </div>
-                              <div className='w-[100px] h-[5px] bg-[#51E38B] rounded-lg'></div> */}
                           </div> 
                           :
-                          <div className='flex flex-col items-center gap-[16px]'>
-                              <img src={Upload} alt='upload' className='w-[56px] h-[56px]' />
-                              
-                            
-                              <label htmlFor="fileInput" className='cursor-pointer flex justify-center items-center   '>
-                                <div className='flex flex-col w-full'>
-                                    <p className='text-sm font-semibold font-inter whitespaace-nowrap text-[#52BC77]'>
+                          <div className='flex flex-col items-center'>
+                              <label htmlFor="fileInput" className='cursor-pointer flex justify-center items-center'>
+                                <div className='flex flex-col items-center w-full'>
+                                  <img src={Upload} alt='upload' className='w-[56px] h-[56px]' />
+                                    <p className='text-sm font-semibold font-inter whitespaace-nowrap mt-4 text-[#52BC77]'>
                                         Click here <span className='text-[#475367]'>or drag and drop to upload</span>
                                     </p>
                                     <p className='text-xs text-center font-medium text-[#98A2B3]'>SVG, PNG, JPG or GIF (max. 800x300px)</p>
@@ -191,20 +177,13 @@ const AddProducts = () => {
                       userImageC?.name ? 
                           <div className='flex flex-col gap-1'>
                             <img alt="upload" width={"200px"} height={"100px"} className='' src={URL.createObjectURL(userImageC)} />
-                              {/* <div className='flex items-center justify-between'>
-                                  <p className='text-[15px] font-hanken text-[#858585]'>{userImageC?.name}</p>
-                                  <p className='text-[#000] text-[11px]'>Completed</p>
-                              </div>
-                              <div className='w-[266px] h-[5px] bg-[#51E38B] rounded-lg'></div> */}
                           </div> 
                           :
                           <div className='flex flex-col items-center gap-[16px]'>
-                              <img src={Upload} alt='upload' className='w-[56px] h-[56px]' />
-                              
-                            
                               <label htmlFor="fileInput" className='cursor-pointer flex justify-center items-center   '>
-                                <div className='flex flex-col w-full'>
-                                    <p className='text-sm font-semibold font-inter whitespaace-nowrap text-[#52BC77]'>
+                                <div className='flex flex-col items-center w-full'>
+                                  <img src={Upload} alt='upload' className='w-[56px] h-[56px]' />
+                                    <p className='text-sm font-semibold font-inter mt-4 text-[#52BC77]'>
                                         Click here <span className='text-[#475367]'>or drag and drop to upload</span>
                                     </p>
                                     <p className='text-xs text-center font-medium text-[#98A2B3]'>SVG, PNG, JPG or GIF (max. 800x300px)</p>
