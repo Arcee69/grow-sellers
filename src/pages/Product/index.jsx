@@ -30,8 +30,6 @@ const Inventory = () => {
         setText(e.target.value)
     }
 
-
-
     useEffect(() => {
         dispatch(fetchAllProducts(text))
     }, [text, delistLoading])
@@ -79,14 +77,17 @@ const Inventory = () => {
 
 
     const navigate = useNavigate()
+
+    const filteredData = products?.filter(item =>
+        item.name.toLowerCase().includes(text.toLowerCase()));
   
-    const totalPages = Math.ceil(products?.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredData?.length / itemsPerPage);
   
     useEffect(() => {
       const startIndex = (currentPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
-      setCurrentData(products?.slice(startIndex, endIndex));
-    }, [currentPage, products]);
+      setCurrentData(filteredData?.slice(startIndex, endIndex));
+    }, [currentPage, filteredData]);
   
     const handlePageChange = (newPage) => {
       if (newPage > 0 && newPage <= totalPages) {

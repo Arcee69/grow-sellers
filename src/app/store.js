@@ -13,6 +13,7 @@ import updatePasswordReducer from "../features/profile/updatePasswordSlice";
 import getOrdersReducer from "../features/orders/getOrdersSlice";
 import getAnalyticsReducer from "../features/analytics/getAnalyticsSlice";
 import getTransactionReducer from "../features/transaction/getTransactionSlice";
+import getSoldItemsReducer from "../features/orders/getSoldItemsSlice";
 
 
 const persistConfig = {
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
     allOrders: getOrdersReducer,
     getAnalytics: getAnalyticsReducer,
     getTransaction: getTransactionReducer,
+    getSoldItems: getSoldItemsReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

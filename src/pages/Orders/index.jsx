@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react'
 import Filter from "../../assets/svg/filter.svg"
 import Search from "../../assets/svg/searchB.svg"
 import AllOrders from './components/AllOrders'
-import Pending from './components/Pending'
+import Sold from './components/Sold'
 import Processing from './components/Processing'
 import Shipped from './components/Shipped'
 import Delivered from './components/Delivered'
 import Cancelled from './components/Cancelled'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllOrders } from '../../features/orders/getOrdersSlice'
+import { fetchAllSoldItems } from '../../features/orders/getSoldItemsSlice'
+
 
 const Orders = () => {
     const [activeTab, setActiveTab] = useState("All Order")
@@ -36,6 +38,9 @@ const Orders = () => {
     },[text])
 
 
+    useEffect(() => {
+        dispatch(fetchAllSoldItems())
+    }, [])
 
 
   return (
@@ -51,13 +56,13 @@ const Orders = () => {
             >
                 All Orders
             </p>
-            {/* <p 
-                onClick={() => handleChangeTab("Pending")} 
-                className={`${activeTab === "Pending" ? "text-[#009254] text-[16px] border-b border-2" :  "text-[#2E3130] text-sm border-0"} text-center font-inter cursor-pointer border-x-0 border-t-0 border border-[#009254] w-[70px] h-[38px]`}
+            <p 
+                onClick={() => handleChangeTab("Sold")} 
+                className={`${activeTab === "Sold" ? "text-[#009254] text-[16px] border-b border-2" :  "text-[#2E3130] text-sm border-0"} text-center font-inter cursor-pointer border-x-0 border-t-0 border border-[#009254] w-[70px] h-[38px]`}
             >
                 Sold
             </p>
-            <p 
+            {/*<p 
                 onClick={() => handleChangeTab("Processing")} 
                 className={`${activeTab === "Processing" ? "text-[#009254] text-[16px] border-b border-2" :  "text-[#2E3130] text-sm border-0"} text-center font-inter cursor-pointer border-x-0 border-t-0 border border-[#009254] w-[99px] h-[38px]`}
             >
@@ -83,7 +88,7 @@ const Orders = () => {
             </p> */}
         </div>
         <div className='flex flex-col gap-3 overflow-x-auto'>
-            <div className='flex lg:flex-row flex-col lg:items-center gap-3'>
+            <div className='flex lg:flex-row flex-col hidden lg:items-center gap-3'>
                 <div className='w-full lg:w-[826px] h-[44px] p-2.5 justify-between flex items-center border border-[#D0D5DD] rounded-lg gap-2'>
                     <input 
                         className='outline-none text-[#667085] text-base font-inter bg-transparent '
@@ -103,7 +108,7 @@ const Orders = () => {
             </div>
 
             {activeTab === "All Order" && <AllOrders />}
-            {activeTab === "Pending" && <Pending />}
+            {activeTab === "Sold" && <Sold />}
             {activeTab === "Processing" && <Processing />}
             {activeTab === "Shipped" && <Shipped />}
             {activeTab === "Delivered" && <Delivered />}

@@ -10,12 +10,11 @@ const initialState = {
     error: ""
 }
 
-export const fetchAllProducts = createAsyncThunk(
-    "products/fetchAllProducts",
-    async (data, { rejectWithValue }) => {
-      // const search = data ? `/search/${data}` : ""
+export const fetchAllSoldItems = createAsyncThunk(
+    "orders/fetchAllSoldItems",
+    async (values, { rejectWithValue }) => {
       try {
-        const data = await api.get(`${appUrls?.FETCH_PRODUCTS_URL}`) //${search}
+        const data = await api.get(`${appUrls?.FETCH_PURCHASED_ITEMS_URL}`)
         return data;
       } catch (error) {
         return rejectWithValue(error);
@@ -23,19 +22,19 @@ export const fetchAllProducts = createAsyncThunk(
     }
   );
 
-const getProductsSlice = createSlice({
-    name: "products",
+const getSoldItemsSlice = createSlice({
+    name: "orders",
     initialState,
     extraReducers: builder => {
-        builder.addCase(fetchAllProducts.pending, state => {
+        builder.addCase(fetchAllSoldItems.pending, state => {
             state.loading = true
         });
-        builder.addCase(fetchAllProducts.fulfilled, (state, action) => {
+        builder.addCase(fetchAllSoldItems.fulfilled, (state, action) => {
             state.loading = false,
             state.data = action.payload.data,
             state.error = ""
         });
-        builder.addCase(fetchAllProducts.rejected, (state, action) => {
+        builder.addCase(fetchAllSoldItems.rejected, (state, action) => {
             state.loading = false,
             state.data = "",
             state.error = action.error
@@ -43,4 +42,4 @@ const getProductsSlice = createSlice({
     }
 });
 
-export default getProductsSlice.reducer
+export default getSoldItemsSlice.reducer

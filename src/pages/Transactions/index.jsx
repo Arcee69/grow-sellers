@@ -129,7 +129,7 @@ const Sales = () => {
           <p className='text-[#667085] font-inter text-sm'>List of all transactions you’ve made</p>
         </div>
 
-        <div className='flex flex-col lg:flex-row lg:items-center gap-3'>
+        <div className='flex flex-col lg:flex-row lg:items-center invisible gap-3'>
             <div className='lg:w-[400px] h-[40px] p-2.5 flex items-center border border-[#D0D5DD] rounded-lg gap-2'>
                 <img src={Search} alt='Search' />
                 <input 
