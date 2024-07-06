@@ -116,7 +116,7 @@ const Dashboard = () => {
         <div className='flex justify-between'>
             <div className='flex flex-col gap-1.5 w-[194px] lg:w-full'> 
               <p className='text-[#09111D] text-xl lg:text-[24px] font-semibold font-inter'>Welcome {userData?.first_name}</p>
-              <p className='text-xs lg:text-[18px] font-inter text-[#8B9298]'>It’s a sunny day today, we want you to make more sales today!</p>
+              <p className='text-xs lg:text-[18px] font-inter text-[#8B9298]'>It’s a fine day today, we want you to make more sales today!</p>
             </div>
             <div className='border border-[#D9E4ED] rounded-lg w-[167px] lg:w-[190px] h-[74px] flex justify-between p-4 items-center'>
               <div className='w-[40px] h-[40px] rounded-full flex items-center justify-center bg-[#F8FAFC]'>
@@ -279,7 +279,7 @@ const Dashboard = () => {
                 Status
               </th>
             </tr>
-            {orderData?.length > 1 ? orderData?.map((item, index) => (
+            {orderData?.length > 1 ? orderData?.slice(0, 5)?.map((item, index) => (
                 <tr key={index} className='bg-white h-[56px] border-t whitespace-nowrap cursor-pointer border-grey-100'>
                     <td className='h-[70px] px-4'>
                         <p className='text-sm font-manrope text-[#101828] text-left'>#{item?.id?.slice(0, 8)}</p> 
@@ -315,7 +315,7 @@ const Dashboard = () => {
                 )}
           </table>
           <div className='flex items-center border border-x-0 border-t bg-[#fff] px-4 py-4 justify-between'>
-              <p className='text-[#344054] font-manrope font-medium'>Page 1 of 10</p>
+              <p className='text-[#344054] font-manrope font-medium'>Page 1 of 1</p>
 
               <div className='flex items-center gap-3'>
                   <button className='w-[85px] h-[36px] flex items-center border border-[#D0D5DD] rounded-lg justify-center'>

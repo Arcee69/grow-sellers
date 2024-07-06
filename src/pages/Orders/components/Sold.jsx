@@ -1,15 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import Empty from "../../../assets/png/empty.png"
 
 const Sold = () => {
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const [currentData, setCurrentData] = useState([]);
 
   const getSoldItems = useSelector(state => state.getSoldItems)
   console.log(getSoldItems, "getSoldItems")
 
   const data = getSoldItems?.data?.data?.orders
+
+  const totalPages = Math.ceil(data?.length / itemsPerPage);
+  
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    setCurrentData(data?.slice(startIndex, endIndex));
+  }, [currentPage, data]);
+
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
 
 
   return (
@@ -33,7 +49,7 @@ const Sold = () => {
                     Status
                 </th>
             </tr>
-            {data?.length > 0 ? data?.map((item, index) => (
+            {currentData?.length > 0 ? currentData?.map((item, index) => (
                 <tr key={index} className='bg-white h-[56px] border-t whitespace-nowrap cursor-pointer border-grey-100'>
                     <td className='h-[70px] px-4'>
                         <div className='flex flex-col'>
@@ -71,14 +87,14 @@ const Sold = () => {
                     </tr>
                 )}
         </table>
-        <div className='flex items-center border border-x-0 border-t bg-[#fff] px-4 py-4 justify-between'>
-            <p className='text-[#344054] font-manrope font-medium'>Page 1 of 10</p>
+        <div className='flex w-auto items-center border border-x-0 border-t bg-[#fff] px-4 py-4 justify-between'>
+            <p className='text-[#344054] font-manrope font-medium'>Page {currentPage} of {totalPages}</p>
 
             <div className='flex items-center gap-3'>
-                <button className='w-[85px] h-[36px] flex items-center border border-[#D0D5DD] rounded-lg justify-center'>
+                <button type='button' onClick={() => handlePageChange(currentPage - 1)} className='w-[85px] h-[36px] flex items-center border border-[#D0D5DD] rounded-lg justify-center'>
                     <p className='text-[#344054] font-medium text-sm font-manrope'>Previous</p>
                 </button>
-                <button className='w-[85px] h-[36px] flex items-center border border-[#D0D5DD] rounded-lg justify-center'>
+                <button type='button' onClick={() => handlePageChange(currentPage + 1)} className='w-[85px] h-[36px] flex items-center border border-[#D0D5DD] rounded-lg justify-center'>
                     <p className='text-[#344054] font-medium text-sm font-manrope'>Next</p>
                 </button>
             </div>

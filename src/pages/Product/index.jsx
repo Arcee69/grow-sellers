@@ -198,7 +198,7 @@ const Inventory = () => {
                         </tr>
                     )}
             </table>
-            <div className='flex w-auto items-center border border-x-0 border-t bg-[#fff] px-4 py-4 justify-between'>
+            <div className='flex items-center border  whitespace-nowrap lg:gap-0 border-x-0 border-t bg-[#fff] px-4 py-4 justify-between'>
                 <p className='text-[#344054] font-manrope font-medium'>Page {currentPage} of {totalPages}</p>
 
                 <div className='flex items-center gap-3'>
