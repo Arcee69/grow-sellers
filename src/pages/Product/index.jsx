@@ -12,6 +12,9 @@ import Filter from "../../assets/svg/filter.svg"
 import Search from "../../assets/svg/searchB.svg"
 import { fetchAllCategories } from '../../features/categories/getCategorySlice'
 import { fetchAllProducts } from '../../features/products/getProductsSlice'
+import { api } from '../../services/api'
+import { appUrls } from '../../services/urls'
+import { toast } from 'react-toastify'
 
 
 const Inventory = () => {
@@ -19,6 +22,7 @@ const Inventory = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
     const [currentData, setCurrentData] = useState([]);
+    const [delistLoading, setDelistLoading] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -30,11 +34,44 @@ const Inventory = () => {
 
     useEffect(() => {
         dispatch(fetchAllProducts(text))
-    }, [text])
+    }, [text, delistLoading])
 
     useEffect(() => {
         dispatch(fetchAllCategories())
     }, [])
+
+    const delistProduct = async (id) => {
+        setDelistLoading(true)
+        await api.post(`${appUrls?.DELIST_PRODUCTS_URL}/${id}`)
+        .then((res) => {
+            console.log(res, "nothing")
+            setDelistLoading(false)
+            toast.success(`${res?.data?.message}`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        })
+        .catch((err) => {
+            console.log(err, 'kiss')
+            setDelistLoading(false)
+            toast.error(`${err?.data?.message}`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        })
+    }
 
     const allProducts = useSelector(state => state.allProducts)
     console.log(allProducts, "allProducts")
@@ -142,7 +179,7 @@ const Inventory = () => {
                         <td className='h-[70px] px-4'>
                             <div className='flex items-center gap-2'>
                                 <img src={Show} alt='Show' className='w-[30px] h-[30px]' />
-                                <img src={Bin} alt='Bin'  className='w-[30px] h-[30px]'/>
+                                <img src={Bin} alt='Bin'  className='w-[30px] h-[30px] cursor-pointer' onClick={() => delistProduct(item?.id)}/>
                             </div>
                         </td>       
 

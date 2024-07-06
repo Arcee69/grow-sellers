@@ -25,6 +25,7 @@ const MobileNavBar = ({ handleClose}) => {
                 <li onClick={() => {navigate("/orders"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Orders</li>
                 <li onClick={() => {navigate("/sales"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Sales</li>
                 <li onClick={() => {navigate("/settings"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Settings</li>
+                <li onClick={() => {window.open("https://grow-africa.netlify.app", "blank"); handleClose()}} className="font-inter font-medium text-base text-[#333]">Marketplace</li>
                 <li onClick={() => {handleLogOut(); handleClose()}} className="font-inter font-medium text-base text-[#333]">Log Out</li>
             </ul>
         </div>

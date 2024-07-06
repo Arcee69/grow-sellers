@@ -8,7 +8,8 @@ export const appUrls = {
     //PRODUCT ENDPOINTS
     CREATE_PRODUCTS_URL: "/product/create",
     FETCH_PRODUCTS_CATEGORIES_URL: "/category",
-    FETCH_PRODUCTS_URL: "/product",
+    FETCH_PRODUCTS_URL: "/product",  // /my-product
+    DELIST_PRODUCTS_URL: "/product/delist",
 
     //PROFILE ENDPOINTS
     FETCH_USER_PROFILE_URL: "/user/profile",

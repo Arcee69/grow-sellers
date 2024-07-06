@@ -7,6 +7,7 @@ import { FaUserGroup } from 'react-icons/fa6'
 import { IoBagOutline, IoSettingsOutline } from 'react-icons/io5'
 import { CiShoppingCart } from 'react-icons/ci'
 import { TbReceipt } from 'react-icons/tb'
+import { FiShoppingBag } from 'react-icons/fi'
 
 const Sidebar = () => {
 
@@ -37,6 +38,10 @@ const Sidebar = () => {
             <div onClick={() => {navigate("/settings"), window.scrollTo(0, 0)}} className={`${location?.pathname === "/settings"  ? "bg-[#F4F6FB]" : ""} w-[222px] h-[48px] rounded-lg  gap-2 flex items-center group cursor-pointer transition-all duration-300 p-[16px] hover:bg-[#ECFFF6]`}>
                 <IoSettingsOutline className={`${location.pathname === "/settings" ? "text-[#009254]" : "text-[#292D32]"} w-5 h-5  group-hover:text-[#111827] `}/>
                 <p className="text-[#111827] font-medium whitespace-nowrap font-inter">Settings</p>
+            </div>
+            <div onClick={() => {window.open("https://grow-africa.netlify.app", "blank"), window.scrollTo(0, 0)}} className={`w-[222px] h-[48px] rounded-lg  gap-2 flex items-center group cursor-pointer transition-all duration-300 p-[16px] hover:bg-[#ECFFF6]`}>
+                <FiShoppingBag className="text-[#292D32] w-5 h-5  group-hover:text-[#111827]"/>
+                <p className="text-[#111827] font-medium whitespace-nowrap font-inter">MarketPlace</p>
             </div>
            
 

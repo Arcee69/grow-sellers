@@ -49,9 +49,9 @@ const Orders = () => {
                 onClick={() => handleChangeTab("All Order")} 
                 className={`${activeTab === "All Order" ? "text-[#009254] text-[16px] border-b border-2" :  "text-[#2E3130] text-sm border-0"} text-center font-inter cursor-pointer border-x-0 border-t-0 border border-[#009254] w-[104px] h-[38px]`}
             >
-                All Order
+                All Orders
             </p>
-            <p 
+            {/* <p 
                 onClick={() => handleChangeTab("Pending")} 
                 className={`${activeTab === "Pending" ? "text-[#009254] text-[16px] border-b border-2" :  "text-[#2E3130] text-sm border-0"} text-center font-inter cursor-pointer border-x-0 border-t-0 border border-[#009254] w-[70px] h-[38px]`}
             >
@@ -62,7 +62,7 @@ const Orders = () => {
                 className={`${activeTab === "Processing" ? "text-[#009254] text-[16px] border-b border-2" :  "text-[#2E3130] text-sm border-0"} text-center font-inter cursor-pointer border-x-0 border-t-0 border border-[#009254] w-[99px] h-[38px]`}
             >
                 Returned
-            </p>
+            </p> */}
             {/* <p 
                 onClick={() => handleChangeTab("Shipped")} 
                 className={`${activeTab === "Shipped" ? "text-[#009254] text-[16px] border-b border-2" :  "text-[#2E3130] text-sm border-0"} text-center font-inter cursor-pointer border-x-0 border-t-0 border border-[#009254] w-[99px] h-[38px]`}
