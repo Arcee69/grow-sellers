@@ -10,14 +10,15 @@ import { IoIosArrowDown } from 'react-icons/io';
 
 const categories = [
     { name: 'All Categories' },
-    { name: 'Arts And Crafts' },
-    { name: 'Foods & Beverages' },
-    { name: 'Clothing & Fashion' },
-    { name: 'Home & Office' },
-    { name: 'Health & Beauty' },
-    { name: 'Sport & Exercise' },
-    { name: 'Books & Stationeries' },
-    { name: 'Foods & Beverages' },
+    { name: 'Fashion' },
+    { name: 'Home & Decor' },
+    { name: 'Beauty' },
+    { name: 'Food & Beverages' },
+    { name: 'Health & Wellness' },
+    { name: 'Hand Crafts' },
+    { name: 'Books & Literature' },
+    { name: 'Musical Instruments' },
+    { name: 'Others' },
   ]
 
 const Header = () => {
