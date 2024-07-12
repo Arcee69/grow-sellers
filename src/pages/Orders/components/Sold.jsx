@@ -65,7 +65,7 @@ const Sold = () => {
                         <p className='text-sm font-manrope text-[#8D9290] text-left'>{`${item?.buyer?.first_name} ${item?.buyer?.last_name}`}</p>
                     </td>
                     <td className='h-[70px] px-4'>
-                        <p className='text-sm font-manrope text-[#8D9290] text-left'>{item?.total_amount}</p>
+                        <p className='text-sm font-manrope text-[#8D9290] text-left'>₦{item?.total}</p>
                     </td>
                     <td className='h-[70px] px-4'>
                         <div className={`rounded-xl h-[22px] w-[77px] flex justify-center items-center ${item.status === 'Cancelled' && ' bg-[#FFDCDC]'} ${item.status === 'pending' && ' bg-[#FEF7EB]'} ${item.status === 'Shipped' && 'bg-[#ECFDF3]'}`}>
