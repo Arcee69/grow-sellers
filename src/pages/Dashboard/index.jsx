@@ -241,11 +241,11 @@ const Dashboard = () => {
           <div className='flex flex-col gap-4'>
             {
               getAnalytics?.data?.productOrderCounts?.length > 0 ?
-              getAnalytics?.data?.map((item, index) => (
+              getAnalytics?.data?.productOrderCounts?.map((item, index) => (
               
-                <div key={index} className='flex items-center justify-between'>
+                <div key={index} className='flex items-center justify-between mx-5'>
                   <div className='flex items-center gap-1.5'>
-                      <div className='bg-[#C4C4C4] w-[36px] h-[36px] rounded-lg'></div>
+                      {/* <div className='bg-[#C4C4C4] w-[36px] h-[36px] rounded-lg'></div> */}
                       <p className='font-inter text-[11px] text-[#333] font-medium'>{item?.product_name}</p>
                   </div>
                   <p className='text-[#667185] text-[11px] font-inter'>{item?.total_quantity}</p>
