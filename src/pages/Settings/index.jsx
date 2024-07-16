@@ -13,6 +13,7 @@ import { updatePassword } from '../../features/profile/updatePasswordSlice';
 import { appUrls } from '../../services/urls'
 import { api } from '../../services/api'
 import { toast } from 'react-toastify';
+import KycForm from './components/KycForm';
 
 
 const Settings = () => {
@@ -21,6 +22,7 @@ const Settings = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
+  const [openKyc, setOpenKyc] = useState(false)
   const [storeLoading, setStoreLoading] = useState(false)
 
   const dispatch = useDispatch()
@@ -135,7 +137,12 @@ const openStore = async () => {
 
   return (
     <div className='flex-col flex gap-6 px-6 py-[15px] mt-10 lg:mt-0'>
-      <p className='text-[#091D10] text-[24px] font-medium'>Settings</p>
+      <div className='flex justify-between items-center'>
+        <p className='text-[#091D10] text-[24px] font-medium'>Settings</p>
+        <button type='button' onClick={() => setOpenKyc(true)} className='w-[150px] rounded-lg bg-[#000] h-[45px] lg:mr-14'>
+          <p className='text-[#fff] text-sm font-medium'>Update KYC</p>
+        </button>
+      </div>
 
       <div className=' border border-[#D9EDE1] flex  w-full  pt-[17px] pb-[17px]  lg:w-[95%] flex-col rounded-lg'>
         <div className='border border-b-[#D9E4ED] border-t-0 pb-[22px] px-[40px]'>
@@ -162,8 +169,10 @@ const openStore = async () => {
             </div>
             <div className='flex flex-col lg:flex-row items-center gap-5 lg:gap-[80px]'>
               <div className='flex flex-col w-full lg:w-[199px] gap-[8px]'>
-                <p className='text-[#091D10] text-base font-inter font-medium'>Store Link</p>
-                <p className='text-[#8B9890] font-inter font-normal text-sm'>{userProfile?.store_link || "Not Available"}</p>
+                <p className='text-[#091D10] text-base font-inter font-medium'>KYC Status</p>
+                <div className={`${userProfile?.store_status === 1 ? "bg-[#E6FCF9]" : "bg-[#f00]"} w-[75px] h-[24px] p-2 flex flex-col items-center justify-center rounded-xl`}>
+                  <p className={`${userProfile?.store_status === 1 ? "text-[#009254]" : "text-[#fff]"} font-inter font-normal text-sm`} >{userProfile?.store_status === 1 ? "Verified" : "Pending"}</p>
+                </div>
               </div>
               <div className='flex flex-col w-full lg:w-[199px] gap-[8px]'>
                 <p className='text-[#091D10] text-base font-inter font-medium'>Date Created</p>
@@ -363,6 +372,12 @@ const openStore = async () => {
             closeStore={closeStore}
             storeLoading={storeLoading} 
           />
+      </ModalPop>
+
+      <ModalPop isOpen={openKyc}>
+        <KycForm 
+          handleClose={() => setOpenKyc(false)}
+        />
       </ModalPop>
   
     </div>

@@ -26,6 +26,7 @@ const AddProducts = () => {
   const [price, setPrice] = useState(0)
   const [discount, setDiscount] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [weight, setWeight] = useState(0)
 
   const [thumbImage, setThumbImage] = useState(null)
 
@@ -91,6 +92,8 @@ const AddProducts = () => {
     formData.append("color", productColor)
     formData.append("discount", discount)
     formData.append("thumbnail", thumbImage)
+    formData.append("weight", weight)
+
 
     dispatch(createProducts(formData))
     .then((res) => {
@@ -235,6 +238,16 @@ const AddProducts = () => {
               onChange={(e) => setSpecification(e.target.value)}
             />
           </div>
+          <div className='flex flex-col gap-1'>
+            <label className='font-inter text-[#3F484F] font-medium text-base'>Product Weight (kg)</label>
+            <input 
+              className='w-full border border-[#C4C7C6] outline-none rounded-lg p-2'
+              name='weight'
+              type='number'
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+            />
+          </div>
 
           <div className='flex flex-col lg:flex-row w-full lg:items-center gap-5 lg:gap-2.5'>
             <div className='flex flex-col gap-1'>
@@ -328,11 +341,10 @@ const AddProducts = () => {
                     </div> 
                     :
                     <div className='flex flex-col items-center gap-[16px]'>
-                        <img src={Upload} alt='upload' className='w-[56px] h-[56px]' />
-                        
-                      
+                
                         <label htmlFor="fileInput" className='cursor-pointer flex justify-center items-center   '>
                           <div className='flex flex-col w-full'>
+                            <img src={Upload} alt='upload' className='w-[56px] h-[56px] mx-auto' /> 
                               <p className='text-sm font-semibold font-inter whitespaace-nowrap text-[#52BC77]'>
                                   Click here <span className='text-[#475367]'>or drag and drop to upload</span>
                               </p>

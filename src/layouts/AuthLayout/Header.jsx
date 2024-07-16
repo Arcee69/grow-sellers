@@ -37,7 +37,7 @@ const Header = () => {
         <img src={Logo} alt='Logo' className='' />
         <div className='flex items-center gap-[44px]'>
 
-            <div className='w-[593px] h-[48px] gap-2 border border-[#E1E3E2] rounded-lg p-3 flex items-center'>
+            <div className='w-[593px] h-[48px] gap-2 border border-[#E1E3E2] hidden rounded-lg p-3 flex items-center'>
                 <Listbox value={selected} onChange={setSelected}>
                     <div className="relative">
                         <Listbox.Button className="relative w-[150px] cursor-default flex items-center gap-2   py-2 pl-3 pr-10 text-left outline-none sm:text-sm">
@@ -96,7 +96,7 @@ const Header = () => {
                 </div>
             </div>
 
-            <div className='flex items-center w-[66px] h-[24px] gap-1.5'>
+            <div className='flex items-center w-[66px] h-[24px] hidden gap-1.5'>
                 <p className='font-inter text-base text-[#000]'>Cart</p>
                 <IoCartOutline className='w-[20px] h-[20px] text-[#333333]'/>
             </div>

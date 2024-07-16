@@ -222,7 +222,7 @@ const SignUp = ({ setQuest }) => {
                                     ) : null}
                                 </div>
 
-                                <div className='w-full flex flex-col mt-1.5'>
+                                <div className='w-full flex hidden flex-col mt-1.5'>
                                     <label htmlFor='store' className="text-base font-inter text-[#09111D]">Store Category</label>
                                     <Listbox  value={values.category} onChange={(value) => setFieldValue('category', value)}>
                                         <div className="relative">
