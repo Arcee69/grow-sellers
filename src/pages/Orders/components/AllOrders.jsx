@@ -82,7 +82,7 @@ const AllOrders = () => {
                         Date & Time
                     </th>
                     <th className="font-semibold font-inter text-[#667085] px-4 text-[12px] text-left">
-                        Buyer’s Name
+                        Order Items
                     </th>
                     <th className="font-semibold font-inter text-[#667085] px-4 text-[12px] text-left">
                         Total Amount
@@ -104,7 +104,7 @@ const AllOrders = () => {
                             <p className='text-sm font-manrope text-[#8D9290] text-left'>{new Date(item?.created_at).toLocaleTimeString() }</p>
                         </td>
                         <td className='h-[70px] px-4'>
-                            <p className='text-sm font-manrope text-[#8D9290] text-left'>{item?.name}</p>
+                            <p className='text-sm font-manrope text-[#8D9290] text-left'>{item?.items_count}</p>
                         </td>
                         <td className='h-[70px] px-4'>
                             <p className='text-sm font-manrope text-[#8D9290] text-left'>{item?.total_amount}</p>

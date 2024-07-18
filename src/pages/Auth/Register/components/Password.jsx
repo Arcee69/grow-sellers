@@ -10,11 +10,14 @@ import Logo from "../../../../assets/svg/logo.svg"
 import { useDispatch } from 'react-redux';
 import { signUpUser } from '../../../../features/auth/signUpSlice';
 import { CgSpinner } from 'react-icons/cg';
+import ModalPop from '../../../../components/modalPop';
+import Terms from './Terms';
 
 const Password = ({ setQuest }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(false)
+    const [openTerms, setOpenTerms] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -62,7 +65,7 @@ const Password = ({ setQuest }) => {
             "last_name": lastName,
             "email": email,
             "phone": phone,
-            "store_category": category,
+            "store_category": category || "",
             "password": values?.password,
             "password_confirmation": values?.confirmPassword
         }
@@ -79,7 +82,7 @@ const Password = ({ setQuest }) => {
         
   return (
     <div className='my-[50px]'>
-        <div className='w-full lg:w-[531px] h-[600px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
+        <div className='w-full lg:w-[531px] h-[640px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
             <div className='hidden lg:flex justify-between items-center pl-6 pr-[52px] mb-5 '>
                 <div className='w-[36px] h-[36px] bg-[#F8FAFC] flex items-center justify-center' onClick={() => setQuest(1)}>
                     <IoChevronBack />
@@ -177,7 +180,11 @@ const Password = ({ setQuest }) => {
                                     <div className='text-RED-_100 font-inter text-xs'>{errors?.confirmPassword}</div>
                                     ) : null}
                                 </div>
-
+                                
+                                <div className='flex items-center gap-1'>
+                                    <input type='checkbox' />
+                                    <p className='font-inter text-sm text-[#000]'>I accept the <span className='underline text-[#00f] cursor-pointer' onClick={() => setOpenTerms(true)}>Terms and conditions</span></p>
+                                </div>
                                
                             
                                 <div className='flex flex-col gap-6 mt-5'>
@@ -208,6 +215,12 @@ const Password = ({ setQuest }) => {
             </div>
 
         </div>
+
+        <ModalPop isOpen={openTerms}>
+            <Terms 
+                handleClose={() => setOpenTerms(false)}
+            />
+        </ModalPop>
 
     </div>
   )

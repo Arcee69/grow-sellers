@@ -14,6 +14,7 @@ import { appUrls } from '../../services/urls'
 import { api } from '../../services/api'
 import { toast } from 'react-toastify';
 import KycForm from './components/KycForm';
+import axios from 'axios';
 
 
 const Settings = () => {
@@ -24,12 +25,14 @@ const Settings = () => {
   const [open, setOpen] = useState(false)
   const [openKyc, setOpenKyc] = useState(false)
   const [storeLoading, setStoreLoading] = useState(false)
+  const [userImage, setUserImage] = useState(null)
 
   const dispatch = useDispatch()
+  const token = localStorage.getItem("token")
 
   const profile = useSelector(state => state.getProfile)
-  const userProfile = profile?.data?.users
   console.log(profile, "profile")
+  const userProfile = profile?.data?.users
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -42,6 +45,11 @@ const Settings = () => {
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
+
+  const handleImageChange = (e) => {
+    const selectedImage =  e.target.files[0]
+    setUserImage(selectedImage)
+  }
 
   const closeStore = async () => {
     setStoreLoading(true)
@@ -64,7 +72,7 @@ const Settings = () => {
     .catch((err) => {
         console.log(err, "error")
         setStoreLoading(false)
-        toast.success(`${err?.data?.message}`, {
+        toast.error(`${err?.data?.message}`, {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: true,
@@ -98,7 +106,7 @@ const openStore = async () => {
     .catch((err) => {
         console.log(err, "error")
         setStoreLoading(false)
-        toast.success(`${err?.data?.message}`, {
+        toast.error(`${err?.data?.message}`, {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: true,
@@ -122,6 +130,32 @@ const openStore = async () => {
     .required("Confirm Password is required"),
 })
 
+  const uploadImage = async () => {
+    let formData = new FormData()
+    formData.append("pic", userImage)
+    await axios.post("https://api.growafrica.shop/api/user/update/profile-pic", formData, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "multipart/formdata"
+      }
+    })
+    .then((res) => {
+      toast.success(`${res?.data?.message}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    })
+    .catch((err) => {
+      console.log(err, "err")
+    })
+  } 
+
   const submitForm = (values) => {
       setLoading(true)
       const data = {
@@ -135,11 +169,14 @@ const openStore = async () => {
       })
   }
 
+  useEffect(() => {
+    uploadImage()
+  }, [userImage])
   return (
     <div className='flex-col flex gap-6 px-6 py-[15px] mt-10 lg:mt-0'>
       <div className='flex justify-between items-center'>
         <p className='text-[#091D10] text-[24px] font-medium'>Settings</p>
-        <button type='button' onClick={() => setOpenKyc(true)} className='w-[150px] rounded-lg bg-[#000] h-[45px] lg:mr-14'>
+        <button type='button' onClick={() => setOpenKyc(true)} className={`${userProfile?.kyc_status === "approved" ? "hidden" : 'w-[150px] rounded-lg bg-[#000] h-[45px] lg:mr-14'}`}>
           <p className='text-[#fff] text-sm font-medium'>Update KYC</p>
         </button>
       </div>
@@ -150,9 +187,44 @@ const openStore = async () => {
         </div>
         <div className='flex flex-col lg:flex-row'>
           <div className='flex flex-col px-5 lg:px-[40px] border border-b-0 border-t-0 w-full lg:w-[327px] py-[21px] gap-2'>
-            <div className='w-[64px] h-[64px] rounded-full flex items-center justify-center bg-[#CDF4DD]'>
+
+            {
+              userProfile?.pic ? 
+                <div className="pt-0 " >
+                  <img src={userProfile?.pic} alt="upload" className='w-[104px] h-[104px] rounded-full' />
+                </div>
+                :
+                <div className="flex flex-col xs:mt-4 lg:mt-0 lg:w-12/12">
+                  {userImage
+                  ? 
+                      <div className="pt-0 " >
+                          <img alt="upload" className='w-[104px] h-[104px] rounded-full' src={URL.createObjectURL(userImage)} />
+                      </div>
+                  :
+                  <label className='w-[104px] h-[104px] rounded-full flex flex-col items-center justify-center bg-[#CDF4DD]'>
+                    <p className='text-[#009254] font-inter  text-xl font-medium'>
+                      {`${userProfile?.first_name?.slice(0, 1)}${userProfile?.last_name?.slice(0, 1)}`}
+                    </p>
+                  <input
+                      type="file"
+                      name="imageDoc"
+                      value={userImage}
+                      className="hidden"
+                      onChange={(e) => handleImageChange(e)}
+                      id="upload"
+                      accept={"image/*"}
+                      multiple={false}
+                  />
+                  </label>
+                  }
+                                          
+                </div> 
+            }
+
+            {/* <div className='w-[64px] h-[64px] rounded-full flex items-center justify-center bg-[#CDF4DD]'>
               <p className='text-[#009254] font-inter text-base font-medium'>{`${userProfile?.first_name?.slice(0, 1)}${userProfile?.last_name?.slice(0, 1)}`}</p>
-            </div>
+            </div> */}
+
             <p className='text-[#091D10] text-base font-inter font-medium'>{userProfile?.first_name + " " + userProfile?.last_name}</p>
             <p className='font-inter text-[#8B9890] text-sm uppercase'>{userProfile?.first_name + " " + userProfile?.last_name} STORE</p>
           </div>
@@ -170,8 +242,8 @@ const openStore = async () => {
             <div className='flex flex-col lg:flex-row items-center gap-5 lg:gap-[80px]'>
               <div className='flex flex-col w-full lg:w-[199px] gap-[8px]'>
                 <p className='text-[#091D10] text-base font-inter font-medium'>KYC Status</p>
-                <div className={`${userProfile?.store_status === 1 ? "bg-[#E6FCF9]" : "bg-[#f00]"} w-[75px] h-[24px] p-2 flex flex-col items-center justify-center rounded-xl`}>
-                  <p className={`${userProfile?.store_status === 1 ? "text-[#009254]" : "text-[#fff]"} font-inter font-normal text-sm`} >{userProfile?.store_status === 1 ? "Verified" : "Pending"}</p>
+                <div className={`${userProfile?.kyc_status === "approved" ? "bg-[#E6FCF9]" : "bg-[#FFC600]"} w-[75px] h-[24px] p-2 flex flex-col items-center justify-center rounded-xl`}>
+                  <p className={`${userProfile?.kyc_status === "approved" ? "text-[#009254]" : "text-[#fff]"} font-inter font-normal text-sm`} >{userProfile?.kyc_status === "approved" ? "Verified" : "Pending"}</p>
                 </div>
               </div>
               <div className='flex flex-col w-full lg:w-[199px] gap-[8px]'>
@@ -332,7 +404,8 @@ const openStore = async () => {
                               disabled={!isValid ? true : false}
 
                             >
-                              <p className='text-[#fff] text-base font-inter  text-center  font-medium'>{loading ? <CgSpinner className=" animate-spin text-2xl " /> : "Change Password"}
+                              <p className='text-[#fff] text-base font-inter  text-center  font-medium'>
+                                {loading ? <CgSpinner className=" animate-spin text-2xl " /> : "Change Password"}
                               </p>
                             </button>
                             

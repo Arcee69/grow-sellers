@@ -10,6 +10,7 @@ import { GoStop } from 'react-icons/go';
 import UserImage from "../../assets/png/userImage.png"
 import Search from "../../assets/svg/search.svg"
 import Notification from "../../assets/svg/notification.svg"
+import { useSelector } from 'react-redux';
 
 
 
@@ -29,6 +30,10 @@ const Header = () => {
         const value = e.target.value;
         setText(value);
     }
+
+    const userLogin = useSelector(state => state.userLogin)
+    console.log(userLogin, "userLogin")
+    const userData = userLogin?.data?.data
 
     const navigate = useNavigate()
 
@@ -63,8 +68,8 @@ const Header = () => {
             
                 <Listbox value={navigationSelected} onChange={setNavigationSelected}>
                     <div className="relative">
-                        <Listbox.Button className="relative w-[40px]  flex items-center gap-2.5 justify-center cursor-default">
-                            <img src={UserImage} alt='UserImage' />
+                        <Listbox.Button className="relative w-[40px]  flex items-center gap-2.5  justify-center cursor-default">
+                            <img src={userData?.pic || UserImage} alt='UserImage' className='rounded-full' />
                         </Listbox.Button>
                         <Transition
                             as={Fragment}

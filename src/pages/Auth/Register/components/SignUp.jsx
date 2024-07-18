@@ -34,7 +34,7 @@ const SignUp = ({ setQuest }) => {
         lastName: Yup.string().required("Last Name is required"),
         email: Yup.string().email().required("email is required"),
         phone: Yup.number().required("Phone is required"),
-        category: Yup.string().required("Category is required")
+        // category: Yup.string().required("Category is required")
     })
 
     const submitForm = (values) => {

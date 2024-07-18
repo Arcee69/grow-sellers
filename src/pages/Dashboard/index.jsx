@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 import Padlock from "../../assets/svg/padlock.svg"
@@ -7,9 +7,12 @@ import LongMenu from "../../assets/svg/longmenu.svg"
 import Empty from "../../assets/png/empty.png"
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAnalytics } from '../../features/analytics/getAnalyticsSlice'
+import ModalPop from '../../components/modalPop'
+import KycNotification from './component/KycNotification'
 
 
 const Dashboard = () => {
+  const [openKyc, setOpenKyc] = useState(false)
 
   const userLogin = useSelector(state => state.userLogin)
   console.log(userLogin, "mask")
@@ -21,6 +24,18 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(fetchAnalytics())
   }, [])
+
+  const checkKycStatus = () => {
+    if(userData?.kyc_status === "pending") {
+      setOpenKyc(true)
+    } else {
+      setOpenKyc(false)
+    }
+  }
+ 
+  useEffect(() => {
+    checkKycStatus()
+  }, [userData])
 
   const getAnalytics = useSelector(state => state.getAnalytics)
   console.log(getAnalytics, "getAnalytics")
@@ -329,6 +344,12 @@ const Dashboard = () => {
           </div>
         </>
       </div>
+
+      <ModalPop isOpen={openKyc}>
+        <KycNotification 
+          handleClose={() => setOpenKyc(false)}
+        />
+      </ModalPop>
 
     </div>
   )
