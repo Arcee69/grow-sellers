@@ -2,6 +2,8 @@ export const appUrls = {
     //AUTH ENDPOINTS
     REGISTER_URL: "/auth/seller/join",
     LOGIN_URL: "/auth/signin",
+    FORGOT_PASSWORD_URL: "/auth/forgot-password",
+    RESET_PASSWORD_URL: "/auth/reset-password",
     EMAIL_VERIFICATION_URL: "/auth/verification",
     RESEND_VERIFICATION_URL: "/auth/resend-verification-code",
 

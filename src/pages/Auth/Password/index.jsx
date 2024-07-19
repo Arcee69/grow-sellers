@@ -9,6 +9,8 @@ import { toast } from 'react-toastify';
 import Logo from "../../../assets/svg/logo.svg"
 import Mail from "../../../assets/svg/mail.svg"
 import { useNavigate } from 'react-router';
+import { api } from '../../../services/api';
+import { appUrls } from '../../../services/urls';
 
 
 const ForgotPassword = () => {
@@ -20,10 +22,16 @@ const ForgotPassword = () => {
         email: Yup.string().email().required("email is required"),
     })
 
-    const submitForm = (values) => {
+    const submitForm = async (values) => {
         localStorage.setItem("resetEmail", values?.email)
-        if(values) {
-            toast.success('A reset link has been sent to your email', {
+        setLoading(true)
+        const data = {
+            "email": values?.email
+        }
+        await api.post(appUrls?.FORGOT_PASSWORD_URL, data)
+        .then((res) => {
+            setLoading(false)
+            toast.success(`${res.data.message}`, {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -34,15 +42,28 @@ const ForgotPassword = () => {
                 theme: "light",
             });
             navigate("/reset-confirmation")
-
-        }
+        })
+        .catch((err) => {
+            setLoading(false)
+            toast.error(`${err.data.message}`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        })
+      
     }
     
   return (
     <div className='my-[50px]'>
-        <div className='w-[531px] h-[491px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
+        <div className='w-full lg:w-[531px] h-[491px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
             <div className='flex justify-between items-center pl-6 pr-[52px] mb-5 '>
-                <div className='w-[36px] h-[36px] bg-[#F8FAFC] flex items-center justify-center'>
+                <div className='w-[36px] h-[36px] bg-[#F8FAFC] flex items-center justify-center' onClick={() => navigate("/")}>
                     <IoChevronBack />
                 </div>
                 {/* <img src={Logo} alt='Logo' className='w-[47px] h-[34px]' /> */}

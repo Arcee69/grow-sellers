@@ -12,7 +12,11 @@ import Inventory from '../pages/Product'
 import Orders from '../pages/Orders'
 import AddProducts from '../pages/Product/components/AddProducts'
 import Register from '../pages/Auth/Register'
+import ForgotPassword from '../pages/Auth/Password'
 import { AuthProtectRoutes, ProtectRoutes } from './protectRoutes'
+import ResetConfirmation from '../pages/Auth/Password/ResetConfirmation'
+import ChangePassword from '../pages/Auth/Password/ChangePassword'
+import Success from '../pages/Auth/Password/Success'
 
 
 
@@ -22,6 +26,10 @@ const Routers = () => {
         <Route element={<AuthProtectRoutes />}>
             <Route path='/' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/forgot-password' element={<ForgotPassword />} />
+            <Route path='/reset-confirmation' element={<ResetConfirmation />} />
+            <Route path='/reset-password' element={<ChangePassword />} />
+            <Route path='/success' element={<Success />} />
         </Route>
         <Route element={<ProtectRoutes />}> 
             <Route path='/dashboard' element={<Dashboard />} />

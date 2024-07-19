@@ -131,7 +131,7 @@ const Login = () => {
                                 <div className="flex flex-col items-start w-full">
                                     <div className='w-full flex items-center justify-between'>
                                         <label htmlFor='password' className="text-base font-inter text-[#09111D]">Password</label>
-                                        {/* <p className='text-[13px] font-inter text-[#27AE60] cursor-pointer'>Forgot Password?</p> */}
+                                        <p className='text-[13px] font-inter text-[#27AE60] cursor-pointer' onClick={() => navigate("/forgot-password")}>Forgot Password?</p>
                                     </div>
                                     <div className='relative w-full rounded-3xl flex items-center gap-1.5 mt-1.5 h-[60px] border-solid  p-4 border border-[#D9E4ED]'>
                                         <img src={Lock} alt='Lock' className='w-4 h-4' />

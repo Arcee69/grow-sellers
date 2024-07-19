@@ -8,6 +8,8 @@ import { CgSpinner } from 'react-icons/cg';
 
 
 import Lock from "../../../assets/svg/lock.svg"
+import { api } from '../../../services/api';
+import { appUrls } from '../../../services/urls';
 
 const ChangePassword = () => {
     const [loading, setLoading] = useState(false)
@@ -27,7 +29,7 @@ const ChangePassword = () => {
     const email = localStorage.getItem("resetEmail")
 
     const formValidationSchema = Yup.object().shape({
-        // password: Yup.string().required("Password is Required"),
+        otp: Yup.string().required("Otp is Required"),
         password: Yup.string().min(8, "Must Contain 8 Characters").required("Password is Required")
         .matches(
         /^(?=.*[a-z])/,
@@ -50,9 +52,17 @@ const ChangePassword = () => {
         .required("Confirm Password is required"),
     });
 
-    const submitForm = (values) => {
-        if(values) {
-            toast.success('Password Changed Successfully', {
+    const submitForm = async (values) => {
+        setLoading(true)
+        const data = {
+            "otp": values?.otp,
+            "password": values?.password,
+            "password_confirmation": values?.confirmPassword
+        }
+        await api.post(appUrls?.RESET_PASSWORD_URL, data)
+        .then((res) => {
+            setLoading(false)
+            toast.success(`${res.data.message}`, {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -63,12 +73,26 @@ const ChangePassword = () => {
                 theme: "light",
             });
             navigate("/success")
-        }
+        })
+        .catch((err) => {
+            setLoading(false)
+            toast.error(`${err.data.message}`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        })
+  
     }
 
   return (
     <div className='my-[50px]'>
-        <div className='w-[531px] h-[500px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
+        <div className='w-full lg:w-[531px] h-[650px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
            
             <div className='flex flex-col px-[52px] mt-5 '>
                 <div className='flex flex-col gap-2.5'>
@@ -79,6 +103,7 @@ const ChangePassword = () => {
                 <div className='mt-[32px] w-full'>
                     <Formik
                         initialValues={{
+                            otp: "",
                             password: "",
                             confirmPassword: ""
                         }}
@@ -102,6 +127,24 @@ const ChangePassword = () => {
                         }) => (
                         <Form onSubmit={handleSubmit} className="flex flex-col ">
                             <div className='flex flex-col gap-6 h-[47px]'>
+
+                                <div className="flex flex-col items-start">
+                                    <label htmlFor='email' className="text-base font-inter text-[#09111D]">Otp</label>
+                                    <div className='w-full rounded-3xl flex items-center gap-1.5 mt-1.5 h-[60px] border-solid  p-4 border border-[#D9E4ED]'>
+                                        <img src={Lock} alt="Lock" className='w-4 h-4' />
+                                        <input
+                                            name="otp"
+                                            placeholder="1234"
+                                            type="text" 
+                                            value={values.otp}
+                                            onChange={handleChange}
+                                            className="w-full text-[#000] placeholder-[#7F9286] font-inter  outline-none "
+                                        />
+                                    </div>
+                                    {errors?.otp && touched?.otp ? (
+                                    <div className='text-RED-_100 font-inter text-xs'>{errors?.otp}</div>
+                                    ) : null}
+                                </div>
 
                                 <div className="flex flex-col w-full">
                                     <label htmlFor='New Password' className="text-base font-inter text-[#09111D]">New Password</label>

@@ -9,10 +9,15 @@ const Success = () => {
 
     const navigate = useNavigate();
 
+    const backToLogin = () => {
+        localStorage.removeItem("resetEmail")
+        navigate("/")
+    }
+
 
   return (
     <div className='my-[100px]'>
-        <div className='w-[531px] h-[350px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
+        <div className='w-full lg:w-[531px] h-[350px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
         
             <div className='flex flex-col items-center justify-center px-[52px] gap-5 mt-5 '>
             <img src={PasswordLock} alt='PasswordLock' className='w-[48px] h-[48px]' />
@@ -22,9 +27,9 @@ const Success = () => {
                 </p>
               
                 <button 
-                    className={`w-[423px] bg-[#52BC77] text-[#fff] rounded-lg p-3 cursor-pointer w-full h-[46px] flex items-center justify-center`}
+                    className={` lg:w-[423px] bg-[#52BC77] text-[#fff] rounded-lg p-3 cursor-pointer w-full h-[46px] flex items-center justify-center`}
                     type="submit"
-                    onClick={() => navigate("/")}
+                    onClick={() => backToLogin()}
                 >
                     <p className='text-[#fff] text-base font-inter  text-center  font-medium'>Login</p>
                 </button>

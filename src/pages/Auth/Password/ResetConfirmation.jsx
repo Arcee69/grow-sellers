@@ -9,8 +9,8 @@ const ResetConfirmation = () => {
     const email = localStorage.getItem("resetEmail")
   return (
     <div className='my-[50px]'>
-        <div className='w-[531px] h-[491px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
-            <div className='flex justify-between items-center pl-6 pr-[52px] mb-5 '>
+        <div className='lg:w-[531px] lg:h-[491px] bg-[#fff] py-[31px] flex flex-col rounded'> {/* h-[559px] */}
+            <div className='flex justify-between items-center pl-6 lg:pr-[52px] mb-5 '>
                 <div 
                     className='w-[36px] h-[36px] cursor-pointer bg-[#F8FAFC] flex items-center justify-center'
                     onClick={() => navigate("/forgot-password")}
@@ -25,17 +25,18 @@ const ResetConfirmation = () => {
 
                 <div className='mt-[32px] w-full'>
                     <p className='text-[#8B9298] font-inter text-base font-medium'>
-                        A password reset link has been sent to {email}. 
+                        A password otp has been sent to {email}. 
                     </p>
 
                     <div className='flex flex-col gap-6 mt-5'>
                         <button 
                             className={`bg-[#52BC77] text-[#fff] rounded-lg p-3 cursor-pointer w-full h-[56px] flex items-center justify-center`}
                             type="submit"
+                            onClick={() => navigate("/reset-password")}
                         >
-                            <a href='mailto:'>
-                                <p className='text-[#fff] text-base font-inter text-center font-medium'>Go to Email</p>
-                            </a>
+                           
+                            <p className='text-[#fff] text-base font-inter text-center font-medium'>Change Password</p>
+                            
                         </button>
                         
                         <p className='text-[#17231C] font-inter text-center text-base cursor-pointer' onClick={() => navigate("/")}>Back to Sign in</p>
