@@ -48,7 +48,7 @@ const AddProducts = () => {
   console.log(productCategories, "productCategories[0]")
   const categories = productCategories?.data?.categories
 
-  const [selected, setSelected] = useState(categories[0])
+  const [selected, setSelected] = useState(categories)
 
   console.log(selected, "selected[0]")
 
@@ -97,9 +97,11 @@ const AddProducts = () => {
 
     dispatch(createProducts(formData))
     .then((res) => {
-      if(res) {
+      if(res?.type === "products/createProducts/fulfilled") {
         setLoading(false)
-        navigate("/dashboard")
+        navigate("/inventory")
+      } else {
+        setLoading(false)
       }
     })
 
@@ -111,7 +113,7 @@ const AddProducts = () => {
 
   return (
     <div className='flex flex-col lg:flex-row items-start'>
-      <div className='flex flex-col w-full lg:w-[672px] gap-[8px] overflow-auto'>
+      <div className='flex flex-col w-full lg:w-[672px] gap-[8px] overflow-x-hidden'>
         <div className='w-full bg-[#fff] flex flex-col border-[#E9F6EE] border gap-6 px-6 py-4 rounded-lg'>
           <p className='font-inter text-[#191C1E] font-semibold text-base'>ADD PRODUCT</p>
           <div className='flex flex-col lg:flex-row items-center gap-3'> 
@@ -124,7 +126,7 @@ const AddProducts = () => {
                           </div> 
                           :
                           <div className='flex flex-col items-center'>
-                              <label htmlFor="fileInput" className='cursor-pointer flex justify-center items-center   '>
+                              <label htmlFor="fileInput1" className='cursor-pointer flex justify-center items-center   '>
                                 <div className='flex flex-col items-center w-full'>
                                   <img src={Upload} alt='upload' className='w-[56px] h-[56px]' />
                                     <p className='text-sm font-semibold font-inter whitespaace-nowrap mt-4 text-[#52BC77]'>
@@ -134,7 +136,8 @@ const AddProducts = () => {
                                 </div>
                                   <input
                                       type="file"
-                                      id="fileInput"
+                                      id="fileInput1"
+                                      name='imgOne'
                                       style={{ display: 'none' }}
                                       onChange={handleFileChange}
                                   />
@@ -153,7 +156,7 @@ const AddProducts = () => {
                           </div> 
                           :
                           <div className='flex flex-col items-center'>
-                              <label htmlFor="fileInput" className='cursor-pointer flex justify-center items-center'>
+                              <label htmlFor="fileInput2" className='cursor-pointer flex justify-center items-center'>
                                 <div className='flex flex-col items-center w-full'>
                                   <img src={Upload} alt='upload' className='w-[56px] h-[56px]' />
                                     <p className='text-sm font-semibold font-inter whitespaace-nowrap mt-4 text-[#52BC77]'>
@@ -163,7 +166,8 @@ const AddProducts = () => {
                                 </div>
                                   <input
                                       type="file"
-                                      id="fileInput"
+                                      id="fileInput2"
+                                      name='imgTwo'
                                       style={{ display: 'none' }}
                                       onChange={handleFileChangeB}
                                   />
@@ -183,7 +187,7 @@ const AddProducts = () => {
                           </div> 
                           :
                           <div className='flex flex-col items-center gap-[16px]'>
-                              <label htmlFor="fileInput" className='cursor-pointer flex justify-center items-center   '>
+                              <label htmlFor="fileInput3" className='cursor-pointer flex justify-center items-center   '>
                                 <div className='flex flex-col items-center w-full'>
                                   <img src={Upload} alt='upload' className='w-[56px] h-[56px]' />
                                     <p className='text-sm font-semibold font-inter mt-4 text-[#52BC77]'>
@@ -193,7 +197,8 @@ const AddProducts = () => {
                                 </div>
                                   <input
                                       type="file"
-                                      id="fileInput"
+                                      id="fileInput3"
+                                      name='imgThree'
                                       style={{ display: 'none' }}
                                       onChange={handleFileChangeC}
                                   />
@@ -209,37 +214,40 @@ const AddProducts = () => {
         <div className='w-full bg-[#fff] flex flex-col border-[#E9F6EE] border gap-6 p-6 rounded-lg'>
           <p className='font-inter text-[#191C1E] font-semibold text-base'>PRODUCT DETAILS</p>
           <div className='flex flex-col gap-1'>
-            <label className='font-inter text-[#3F484F] font-medium text-base'>Product Name</label>
+            <label className='font-inter text-[#3F484F] font-medium text-base'>Product Name <span className='text-red-400'>*</span></label>
             <input 
               className='w-full border border-[#C4C7C6] outline-none rounded-lg p-2'
               name='productName'
+              placeholder='Product Name'
               type='text'
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
             />
           </div>
           <div className='flex flex-col gap-1'>
-            <label className='font-inter text-[#3F484F] font-medium text-base'>Product Description</label>
+            <label className='font-inter text-[#3F484F] font-medium text-base'>Product Description <span className='text-red-400'>*</span></label>
             <textarea 
               className='w-full border border-[#C4C7C6] outline-none rounded-lg p-2 h-[156px]'
               name='description'
               type='text'
+              placeholder='Product Description'
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
           <div className='flex flex-col gap-1'>
-            <label className='font-inter text-[#3F484F] font-medium text-base'>Product Specification</label>
+            <label className='font-inter text-[#3F484F] font-medium text-base'>Product Specification<span className='text-red-400'>*</span></label>
             <input 
               className='w-full border border-[#C4C7C6] outline-none rounded-lg p-2'
               name='specification'
               type='text'
+              placeholder='Product Specification'
               value={specification}
               onChange={(e) => setSpecification(e.target.value)}
             />
           </div>
           <div className='flex flex-col gap-1'>
-            <label className='font-inter text-[#3F484F] font-medium text-base'>Product Weight (kg)</label>
+            <label className='font-inter text-[#3F484F] font-medium text-base'>Product Weight (kg)<span className='text-red-400'>*</span></label>
             <input 
               className='w-full border border-[#C4C7C6] outline-none rounded-lg p-2'
               name='weight'
@@ -342,7 +350,7 @@ const AddProducts = () => {
                     :
                     <div className='flex flex-col items-center gap-[16px]'>
                 
-                        <label htmlFor="fileInput" className='cursor-pointer flex justify-center items-center   '>
+                        <label htmlFor="fileInput4" className='cursor-pointer flex justify-center items-center   '>
                           <div className='flex flex-col w-full'>
                             <img src={Upload} alt='upload' className='w-[56px] h-[56px] mx-auto' /> 
                               <p className='text-sm font-semibold font-inter whitespaace-nowrap text-[#52BC77]'>
@@ -352,7 +360,8 @@ const AddProducts = () => {
                           </div>
                             <input
                                 type="file"
-                                id="fileInput"
+                                id="fileInput4"
+                                name='imgThumb'
                                 style={{ display: 'none' }}
                                 onChange={handleFileChangeThumb}
                             />
@@ -403,7 +412,7 @@ const AddProducts = () => {
         </div>
       </div>
       
-      <div className='flex flex-col w-full lg:w-[411px] py-4 px-6 gap-6'>
+      <div className='flex flex-col w-full lg:w-[360px] py-4 px-6 gap-6'>
         <p className='text-[#191C1E] font-inter text-base font-semibold'>PREVIEW</p>
         <img src={thumbImage ? URL.createObjectURL(thumbImage) : ImagePlaceholder} alt='ImagePlaceholder' className='w-full h-[320px]' />
 

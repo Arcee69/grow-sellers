@@ -12,11 +12,13 @@ import ModalPop from '../../components/modalPop'
 import Details from './components/Details'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchTransactions } from '../../features/transaction/getTransactionSlice'
+import AddAccount from './components/AddAccount'
 
 const Sales = () => {
   const [text, setText] = useState("")
   const [activeButton, setActiveButton] = useState("Inflow")
   const [openDetails, setOpenDetails] = useState(false)
+  const [openAccount, setOpenAccount] = useState(false)
 
   const handleChange = (e) => {
       setText(e.target.value)
@@ -71,11 +73,11 @@ const Sales = () => {
               </svg>
             </div> */}
           </div>
-          <p className='text-[24px] text-[#fff] font-inter mt-2 font-bold'>0 Paid Order</p>
+          <p className='text-[24px] text-[#fff] font-inter mt-2 font-bold'>{orders?.length} Paid Order</p>
           <div className='flex items-center gap-1.5'>
             <p className='font-inter text-xs text-[#fff] font-normal'>0 Successful</p>
             <p className='font-inter text-xs text-[#fff] font-normal'>0 Returned</p>
-            <p className='font-inter text-xs text-[#fff] font-normal'>2 Pending</p>
+            <p className='font-inter text-xs text-[#fff] font-normal'>0 Pending</p>
           </div>
  
           <div className='flex w-[265px] flex-col  gap-1 mt-[14px]'>
@@ -110,13 +112,22 @@ const Sales = () => {
             </svg>
             <p className='text-[#009254] font-inter text-xs font-bold'>2.1%</p> */}
           </div>
- 
-          <button
-            className='bg-[#009254] rounded-[16px] w-[143px] flex items-center justify-center h-[40px] mt-6'
-            onClick={() => setOpenDetails(true)}
-          >
-            <p className='text-[#fff] font-inter text-xs font-semibold'>Account Details</p>
-          </button>
+          
+          <div className='flex items-center gap-5'>
+            <button
+              className='bg-[#009254] rounded-[16px] w-[143px] flex items-center justify-center h-[40px] mt-6'
+              onClick={() => setOpenDetails(true)}
+            >
+              <p className='text-[#fff] font-inter text-xs font-semibold'>Account Details</p>
+            </button>
+            <button
+              className='bg-[#009254] rounded-[16px] w-[143px] flex items-center justify-center h-[40px] mt-6'
+              onClick={() => setOpenAccount(true)}
+            >
+              <p className='text-[#fff] font-inter text-xs font-semibold'>Add Account</p>
+            </button>
+
+          </div>
           
         </div>
 
@@ -153,6 +164,10 @@ const Sales = () => {
 
         <ModalPop isOpen={openDetails}>
           <Details handleClose={() => setOpenDetails(false)} />
+        </ModalPop>
+
+        <ModalPop isOpen={openAccount}>
+          <AddAccount handleClose={() => setOpenAccount(false)} />
         </ModalPop>
     </div>
   )

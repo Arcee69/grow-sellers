@@ -1,14 +1,16 @@
 import React, { Fragment, useState } from 'react'
 import { Form, Formik } from 'formik'
 import * as Yup from "yup"
-
-import UploadIcon from "../../../assets/svg/upload_icon.svg"
-import CloseIcon from "../../../assets/svg/closeIcon.svg"
+import { toast } from 'react-toastify'
+import { CgSpinner } from 'react-icons/cg'
 import { Listbox, Transition } from '@headlessui/react'
 import { IoIosArrowDown } from 'react-icons/io'
 import axios from 'axios'
-import { toast } from 'react-toastify'
-import { CgSpinner } from 'react-icons/cg'
+
+import UploadIcon from "../../../assets/svg/upload_icon.svg"
+import CloseIcon from "../../../assets/svg/closeIcon.svg"
+
+
 
 const genderOptions = [
     {name: ""},
