@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { CartesianGrid, Legend, Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 import Padlock from "../../assets/svg/padlock.svg"
 import LongMenu from "../../assets/svg/longmenu.svg"
@@ -9,10 +9,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchAnalytics } from '../../features/analytics/getAnalyticsSlice'
 import ModalPop from '../../components/modalPop'
 import KycNotification from './component/KycNotification'
+import { api } from '../../services/api'
+import { appUrls } from '../../services/urls'
 
 
 const Dashboard = () => {
   const [openKyc, setOpenKyc] = useState(false)
+  const [barData, setBarData] = useState({})
 
   const userLogin = useSelector(state => state.userLogin)
   console.log(userLogin, "mask")
@@ -45,85 +48,50 @@ const Dashboard = () => {
 
   const orderData = allOrders?.data?.data?.orders
 
+  const getGraphData = async () => {
+    await api.post(appUrls?.FETCH_GRAPH_URL + `/${2024}`)
+    .then((res) => {
+      console.log(res, "magic")
+      setBarData(res?.data)
+    })
+    .catch((err) => {
+      console.log(err, "err")
+    })
+  }
 
-  const data = [
-    {
-      "name": "Jan",
-      "Food & Beverages": 4000,
-      "Furniture": 2400,
-      "amt": 2400
-    },
-    {
-      "name": "Feb",
-      "Food & Beverages": 3000,
-      "Furniture": 1398,
-      "amt": 2210
-    },
-    {
-      "name": "Mar",
-      "Food & Beverages": 2000,
-      "Furniture": 9800,
-      "amt": 2290
-    },
-    {
-      "name": "Apr",
-      "Food & Beverages": 2780,
-      "Furniture": 3908,
-      "amt": 2000
-    },
-    {
-      "name": "May",
-      "Food & Beverages": 1890,
-      "Furniture": 4800,
-      "amt": 2181
-    },
-    {
-      "name": "Jun",
-      "Food & Beverages": 2390,
-      "Furniture": 3800,
-      "amt": 2500
-    },
-    {
-      "name": "Jul",
-      "Food & Beverages": 3490,
-      "Furniture": 4300,
-      "amt": 2100
-    }
+  useEffect(() => {
+    getGraphData()
+  },[])
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June", "July", "August", 
+    "September", "October", "November", "December"
   ]
 
 
+  const data = barData.monthlySales 
+    ? Object.keys(barData.monthlySales).map(key => {
+        const monthData = barData.monthlySales[key];
+        const formattedData = { month: monthNames[monthData.month - 1] };
+        monthData.categories.forEach(category => {
+          formattedData[category.category] = category.total;
+        });
+        return formattedData;
+      })
+    : [];
 
-//   const orderData = [
-//     {
-//         id: "#3066",
-//         name: "Ekomobong Enang",
-//         dateAndTime: "18/09/23 • 12:00",
-//         amount: "#3,000",
-//         status: "Shipped"
-//     },
-//     {
-//         id: "#3066",
-//         name: "Solomon Edem",
-//         dateAndTime: "18/09/23 • 12:00",
-//         amount: "#3,000",
-//         status: "Processing"
-//     },
-//     {
-//         id: "#3066",
-//         name: "Unwana Bright",
-//         dateAndTime: "18/09/23 • 12:00",
-//         amount: "#3,000",
-//         status: "Cancelled"
-//     },
-//     {
-//         id: "#3066",
-//         name: "Jacob Jones",
-//         dateAndTime: "18/09/23 • 12:00",
-//         amount: "#3,000",
-//         status: "Shipped"
-//     },
- 
-// ]
+  const categories = data.length > 0 ? [...new Set(data.flatMap(item => Object.keys(item).filter(key => key !== 'month')))] : [];
+
+
+  // Function to generate random colors for the bars
+  const generateRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
   return (
     <div className='py-[40px] px-4 flex flex-col gap-[26px]'>
@@ -202,7 +170,7 @@ const Dashboard = () => {
           <div className='flex justify-between p-3'>
             <div className='flex flex-col gap-2'>
               <p className='text-[#111827] font-inter text-sm lg:text-[20px] font-semibold'>Product Category Performance</p>
-              <div className='flex items-center gap-4'>
+              <div className='flex items-center hidden gap-4'>
                 <div className='flex items-center gap-1'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
                     <circle cx="4" cy="4" r="4" fill="#0CAF60" />
@@ -231,15 +199,16 @@ const Dashboard = () => {
           </div>
           <div className='lg:w-[730px] w-full h-[250px]'>
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+              <BarChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="Furniture" stroke="#0CAF60" />
-                <Line type="monotone" dataKey="Food & Beverages" stroke="#FFC837" />
-              </LineChart>
+                {categories.map(category => (
+                  <Bar key={category} dataKey={category} fill={generateRandomColor()} />
+                ))}
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
@@ -274,7 +243,7 @@ const Dashboard = () => {
       </div>
 
       <div className='bg-[#fff] w-full overflow-auto rounded-xl px-[24px] py-[15px] gap-[39px] flex flex-col'>
-        <p className='font-manrope text-[#111827] text-[20px] font-bold'>My Orders</p>
+        <p className='font-manrope text-[#111827] text-[20px] font-bold'>Orders</p>
         <>
           <table className='w-full'>
             <tr className='h-[48px] bg-[#F9FAFB] whitespace-nowrap rounded-lg'>
@@ -285,7 +254,7 @@ const Dashboard = () => {
                 Date & Time
               </th>
               <th className="font-semibold font-inter text-[#667085] px-4 text-[12px] text-left">
-                Buyer’s Name
+                Items Count
               </th>
               <th className="font-semibold font-inter text-[#667085] px-4 text-[12px] text-left">
                 Total Amount
@@ -304,7 +273,7 @@ const Dashboard = () => {
                         <p className='text-sm font-manrope text-[#8D9290] text-left'>{new Date(item?.created_at).toLocaleTimeString() }</p>
                     </td>
                     <td className='h-[70px] px-4'>
-                        <p className='text-sm font-manrope text-[#8D9290] text-left'>{item?.name}</p>
+                        <p className='text-sm font-manrope text-[#8D9290] text-left'>{item?.items_count}</p>
                     </td>
                     <td className='h-[70px] px-4'>
                         <p className='text-sm font-manrope text-[#8D9290] text-left'>{item?.total_amount}</p>

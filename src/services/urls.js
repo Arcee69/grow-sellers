@@ -27,7 +27,10 @@ export const appUrls = {
     TRANSACTION_URL: "/transactions/user",
 
     //ANALYTICS ENDPOINT
-    FETCH_ANALYTICS_URL: "/analytics/seller"
+    FETCH_ANALYTICS_URL: "/analytics/seller",
+
+    //GRAPH ENDPOINT
+    FETCH_GRAPH_URL: "/analytics/total/category/sale"
     
 
 };
