@@ -48,8 +48,10 @@ const Dashboard = () => {
 
   const orderData = allOrders?.data?.data?.orders
 
+  const year = new Date().getFullYear()
+
   const getGraphData = async () => {
-    await api.post(appUrls?.FETCH_GRAPH_URL + `/${2024}`)
+    await api.post(appUrls?.FETCH_GRAPH_URL + `/${year}`)
     .then((res) => {
       console.log(res, "magic")
       setBarData(res?.data)
