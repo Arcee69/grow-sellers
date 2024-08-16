@@ -30,7 +30,10 @@ export const appUrls = {
     FETCH_ANALYTICS_URL: "/analytics/seller",
 
     //GRAPH ENDPOINT
-    FETCH_GRAPH_URL: "/analytics/total/category/sale"
+    FETCH_GRAPH_URL: "/analytics/total/category/sale",
+
+    //BANK ENDPOINT
+    ADD_BANK_URL: "/user/update/bank-details"
     
 
 };

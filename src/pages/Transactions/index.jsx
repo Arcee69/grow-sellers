@@ -24,6 +24,11 @@ const Sales = () => {
       setText(e.target.value)
   }
 
+  const userLogin = useSelector(state => state.userLogin)
+  const userData = userLogin?.data?.data
+  console.log(userData, "userData")
+  
+
   const dispatch = useDispatch()
 
   const handleButtonChange = (value) => {
@@ -120,12 +125,16 @@ const Sales = () => {
             >
               <p className='text-[#fff] font-inter text-xs font-semibold'>Account Details</p>
             </button>
-            <button
-              className='bg-[#009254] rounded-[16px] w-[143px] flex items-center justify-center h-[40px] mt-6'
-              onClick={() => setOpenAccount(true)}
-            >
-              <p className='text-[#fff] font-inter text-xs font-semibold'>Add Account</p>
-            </button>
+            {
+              userData?.bank_name && userData?.account_number ? null :
+              <button
+                className='bg-[#009254] rounded-[16px] w-[143px] flex items-center justify-center h-[40px] mt-6'
+                onClick={() => setOpenAccount(true)}
+              >
+                <p className='text-[#fff] font-inter text-xs font-semibold'>Add Account</p>
+              </button>
+
+            }
 
           </div>
           

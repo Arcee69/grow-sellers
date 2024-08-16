@@ -5,6 +5,8 @@ import { toast } from 'react-toastify'
 
 import CloseIcon from "../../../assets/svg/closeIcon.svg"
 import { CgSpinner } from 'react-icons/cg'
+import { api } from '../../../services/api'
+import { appUrls } from '../../../services/urls'
 
 const AddAccount = ({ handleClose }) => {
     const [loading, setLoading] = useState(false)
@@ -16,47 +18,47 @@ const AddAccount = ({ handleClose }) => {
         bankName: Yup.string().required("Required"),
     })
 
-    // const submitForm = async (values) => {
-     
-    //     setLoading(true)
-    
- 
+    const submitForm = async (values, actions) => {
+        setLoading(true)
 
-    //     try {
-    //         const response = await axios.post("https://api.growafrica.shop/api/user/kyc-application", formData, {
-    //             headers: {
-    //                 "Content-Type": "multipart/form-data",
-    //                 "Authorization": `Bearer ${token} `
-    //             }
-    //         })
-    //         setLoading(false)
-    //         console.log(response, "gapa")
-    //         toast.success(`${response?.data?.message}`, {
-    //             position: "top-center",
-    //             autoClose: 5000,
-    //             hideProgressBar: true,
-    //             closeOnClick: true,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //         });
-    //         handleClose()
-    //     } catch(err) {
-    //         setLoading(false)
-    //         toast.error(`${err?.data?.message}`, {
-    //             position: "top-center",
-    //             autoClose: 5000,
-    //             hideProgressBar: true,
-    //             closeOnClick: true,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //         });
-    //         handleClose()
-    //     }
-    // }
+        const data = {
+            "bank_name": values?.bankName,
+            "account_name":  values?.fullName,
+            "account_number": values?.account
+        }
+    
+        try {
+            const response = await api.post(appUrls?.ADD_BANK_URL, data)
+            setLoading(false)
+            console.log(response, "gapa")
+            toast.success(`${response?.data?.message}`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            actions.resetForm();
+            handleClose();
+        } catch(err) {
+            setLoading(false)
+            console.log(err, "zana")
+            toast.error(`${err?.data?.message}`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            handleClose()
+        }
+    }
 
   return (
     <div className='w-[491px] h-[462px] mt-[100px] py-[40px] px-5 overflow-y-scroll gap-6 flex flex-col bg-[#fff] rounded-lg '>
@@ -77,10 +79,10 @@ const AddAccount = ({ handleClose }) => {
                     gender: ""
                 }}
                 validationSchema={formValidationSchema}
-                onSubmit={(values) => {
+                onSubmit={(values, actions) => {
                     window.scrollTo(0, 0)
                     console.log(values, "often")
-                    // submitForm(values)
+                    submitForm(values, actions)
                 }}
             >
                 {({
