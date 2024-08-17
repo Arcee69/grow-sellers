@@ -11,6 +11,7 @@ import { createProducts } from '../../../features/products/addProductSlice'
 import { CgSpinner } from 'react-icons/cg'
 import { useNavigate } from 'react-router-dom'
 
+import CloseIcon from "../../../assets/svg/closeIcon.svg"
 
 
 const AddProducts = () => {
@@ -121,8 +122,11 @@ const AddProducts = () => {
               <div className='p-[9px] w-full lg:w-[150px] cursor-pointer flex justify-center gap-[16px] '>
                   {  
                       userImage?.name ? 
-                          <div className='flex flex-col gap-1'>
+                          <div className='flex flex-col gap-1 relative'>
                             <img alt="upload" width={"200px"} height={"100px"} className='' src={URL.createObjectURL(userImage)} />
+                            <button className="flex items-center absolute -top-5 -right-3" onClick={() => setUserImage(null)}> 
+                              <img src={CloseIcon} alt='close' />
+                            </button>
                           </div> 
                           :
                           <div className='flex flex-col items-center'>
@@ -151,8 +155,11 @@ const AddProducts = () => {
               <div className='p-[9px] w-full lg:w-[150px] cursor-pointer flex justify-center gap-[16px] '>
                   {  
                       userImageB?.name ? 
-                          <div className='flex flex-col gap-1'>
+                          <div className='flex flex-col gap-1 relative'>
                             <img alt="upload" width={"200px"} height={"100px"} className='' src={URL.createObjectURL(userImageB)} />
+                            <button className="flex items-center absolute -top-5 -right-3" onClick={() => setUserImageB(null)}> 
+                              <img src={CloseIcon} alt='close' />
+                            </button>
                           </div> 
                           :
                           <div className='flex flex-col items-center'>
@@ -182,8 +189,11 @@ const AddProducts = () => {
               <div className='p-[9px] w-full lg:w-[150px] cursor-pointer flex justify-center gap-[16px] '>
                   {  
                       userImageC?.name ? 
-                          <div className='flex flex-col gap-1'>
+                          <div className='flex flex-col gap-1 relative'>
                             <img alt="upload" width={"200px"} height={"100px"} className='' src={URL.createObjectURL(userImageC)} />
+                              <button className="flex items-center absolute -top-5 -right-3" onClick={() => setUserImageC(null)}> 
+                                  <img src={CloseIcon} alt='close' />
+                              </button>
                           </div> 
                           :
                           <div className='flex flex-col items-center gap-[16px]'>
@@ -339,13 +349,11 @@ const AddProducts = () => {
               <div className='p-[9px] w-[300px] cursor-pointer flex justify-center gap-[16px] '>
                 {  
                   thumbImage?.name ? 
-                    <div className='flex flex-col gap-1'>
+                    <div className='flex flex-col gap-1 relative'>
                       <img alt="upload" width={"300px"} height={"100px"} className='' src={URL.createObjectURL(thumbImage)} />
-                        {/* <div className='flex items-center justify-between'>
-                            <p className='text-[15px] font-hanken text-[#858585]'>{thumbImage?.name}</p>
-                            <p className='text-[#000] text-[11px]'>Completed</p>
-                        </div>
-                        <div className='w-[266px] h-[5px] bg-[#51E38B] rounded-lg'></div> */}
+                        <button className="flex items-center absolute -top-3 -right-32" onClick={() => setThumbImage(null)}> 
+                          <img src={CloseIcon} alt='close' />
+                        </button>
                     </div> 
                     :
                     <div className='flex flex-col items-center gap-[16px]'>

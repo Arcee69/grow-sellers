@@ -15,14 +15,23 @@ import { fetchAllProducts } from '../../features/products/getProductsSlice'
 import { api } from '../../services/api'
 import { appUrls } from '../../services/urls'
 import { toast } from 'react-toastify'
+import ModalPop from '../../components/modalPop'
+import ViewProduct from './components/ViewProduct'
+import DeleteProduct from './components/DeleteProduct'
+import { TbHttpDelete } from 'react-icons/tb'
 
 
 const Inventory = () => {
     const [text, setText] = useState("")
+    const [showProduct, setShowProduct] = useState(false)
+    const [showData, setShowData] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
     const [currentData, setCurrentData] = useState([]);
     const [delistLoading, setDelistLoading] = useState(false)
+    const [deleteProductLoading, setDeleteProductLoading] = useState(false)
+    const [openDeleteProduct, setOpenDeleteProduct] = useState(false)
+
 
     const dispatch = useDispatch()
 
@@ -32,7 +41,7 @@ const Inventory = () => {
 
     useEffect(() => {
         dispatch(fetchAllProducts(text))
-    }, [text, delistLoading])
+    }, [text, delistLoading, deleteProductLoading])
 
     useEffect(() => {
         dispatch(fetchAllCategories())
@@ -71,6 +80,8 @@ const Inventory = () => {
         })
     }
 
+   
+
     const allProducts = useSelector(state => state.allProducts)
     console.log(allProducts, "allProducts")
     const products = allProducts?.data?.data?.products
@@ -87,7 +98,7 @@ const Inventory = () => {
       const startIndex = (currentPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       setCurrentData(filteredData?.slice(startIndex, endIndex));
-    }, [currentPage, filteredData]);
+    }, [currentPage]);  // filteredData
   
     const handlePageChange = (newPage) => {
       if (newPage > 0 && newPage <= totalPages) {
@@ -114,7 +125,7 @@ const Inventory = () => {
         <div className='flex flex-col lg:flex-row lg:items-center gap-3'>
             <div className='w-full lg:w-[826px] h-[54px] p-2.5 justify-between flex items-center border border-[#D0D5DD] rounded-lg gap-2'>
                 <input 
-                    className='outline-none text-[#667085] text-base font-inter bg-transparent '
+                    className='outline-none text-[#667085] text-base w-full font-inter bg-transparent '
                     name='filter'
                     type='text'
                     placeholder='Search for products'
@@ -155,7 +166,7 @@ const Inventory = () => {
                         Action
                     </th>
                 </tr>
-                {currentData?.length > 0 ? currentData?.map((item, index) => (
+                {filteredData?.length > 0 ? filteredData?.map((item, index) => (
                     <tr key={index} className='bg-white w-full whitespace-nowrap h-[56px] border-t cursor-pointer border-grey-100'>
                         <td className='h-[70px] px-4'>
                             <p className='text-sm font-inter text-[#101828] text-left'>{item?.name}</p> 
@@ -179,8 +190,10 @@ const Inventory = () => {
                         </td> 
                         <td className='h-[70px] px-4'>
                             <div className='flex items-center gap-2'>
-                                <img src={Show} alt='Show' className='w-[30px] h-[30px]' />
+                                <img src={Show} alt='Show' className='w-[30px] h-[30px]' onClick={() => {setShowProduct(true), setShowData(item)}}/>
                                 <img src={Bin} alt='Bin'  className='w-[30px] h-[30px] cursor-pointer' onClick={() => delistProduct(item?.id)}/>
+                                <TbHttpDelete className='text-[30px] cursor-pointer text-red-500' onClick={() => {setOpenDeleteProduct(true); setShowData(item)}} />
+                                {/* <img src={Bin} alt='Bin'  className='w-[30px] h-[30px] cursor-pointer' onClick={() => {setOpenDeleteProduct(true); setShowData(item)}}/> */}
                             </div>
                         </td>       
 
@@ -213,6 +226,20 @@ const Inventory = () => {
             </div>
         </div>
        
+       <ModalPop isOpen={showProduct}>
+            <ViewProduct 
+                handleClose={() => setShowProduct(false)}
+                showData={showData}
+            />
+       </ModalPop>
+       <ModalPop isOpen={openDeleteProduct}>
+            <DeleteProduct 
+                handleClose={() => setOpenDeleteProduct(false)}
+                showData={showData}
+                deleteProductLoading={deleteProductLoading}
+                setDeleteProductLoading={setDeleteProductLoading}
+            />
+       </ModalPop>
 
     </div>
   )

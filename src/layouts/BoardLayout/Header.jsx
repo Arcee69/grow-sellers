@@ -58,7 +58,7 @@ const Header = () => {
             
 
             <div className='flex gap-4 items-center'>
-                <div className='flex items-center w-[66px] cursor-pointer h-[24px] gap-1.5'>
+                <div className='flex items-center w-[66px] invisible cursor-pointer h-[24px] gap-1.5'>
                     <p className='font-inter text-base text-[#000]'>Cart</p>
                     <IoCartOutline className='w-[20px] h-[20px] text-[#333333]'/>
                 </div>
