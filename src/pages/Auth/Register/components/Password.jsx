@@ -72,7 +72,6 @@ const Password = ({ setQuest }) => {
         dispatch(signUpUser(data))
         .then((res) => {
             setLoading(false)
-            console.log(res, "apostle")
             if(res?.meta?.requestStatus === "fulfilled") {
                 setQuest(3)
             }
@@ -105,7 +104,6 @@ const Password = ({ setQuest }) => {
                         validationSchema={formValidationSchema}
                         onSubmit={(values) => {
                             window.scrollTo(0, 0)
-                            console.log(values, "often")
                             submitForm(values)
                         }}
                         >

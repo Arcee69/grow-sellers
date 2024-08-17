@@ -13,7 +13,6 @@ const Inflow = () => {
 
     const allTransactions = useSelector(state => state.getTransaction)
     const transaction = allTransactions?.data?.data?.transactions
-    console.log(transaction, "transaction")
 
     const totalPages = Math.ceil(transaction?.length / itemsPerPage);
   

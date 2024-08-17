@@ -17,7 +17,6 @@ export const createProducts = createAsyncThunk(
     async (data, { rejectWithValue}) => {
         try {
             const res = await api.post(appUrls?.CREATE_PRODUCTS_URL, data)
-            console.log(res, "lamba")
             if(res.status === 200) {
                 toast.success(`${res?.data?.message}`, {
                     position: "top-center",

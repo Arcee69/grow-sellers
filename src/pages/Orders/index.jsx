@@ -29,9 +29,9 @@ const Orders = () => {
     }
 
     const userLogin = useSelector(state => state.userLogin)
-    console.log(userLogin, "userLogin")
+
     const id = userLogin?.data?.data?.id
-    console.log(id, 'id')
+
 
     useEffect(() => {
         dispatch(fetchAllOrders(id))

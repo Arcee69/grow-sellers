@@ -32,7 +32,6 @@ const Header = () => {
     }
 
     const userLogin = useSelector(state => state.userLogin)
-    console.log(userLogin, "userLogin")
     const userData = userLogin?.data?.data
 
     const navigate = useNavigate()

@@ -24,7 +24,6 @@ const Verify = ({ setQuest }) => {
         }
         await api.post(appUrls?.EMAIL_VERIFICATION_URL, data)
         .then((res) => {
-            console.log(res, 'pampo')
             setLoading(false)
             toast.success(`${res?.data?.message}`, {
                 position: "top-center",
@@ -44,7 +43,6 @@ const Verify = ({ setQuest }) => {
             setQuest(4)
         })
         .catch((err) => {
-            console.log(err, 'jinma')
             setLoading(false)
             toast.error('Verification Error', {
                 position: "top-center",
@@ -66,7 +64,6 @@ const Verify = ({ setQuest }) => {
         }
         await api.post(appUrls?.RESEND_VERIFICATION_URL, data)
         .then((res) => {
-            console.log(res, 'salo')
             setResendLoading(false)
             toast.success('Verification Sent', {
                 position: "top-center",
@@ -80,7 +77,6 @@ const Verify = ({ setQuest }) => {
             });
         })
         .catch((err) => {
-            console.log(err, 'gain')
             setResendLoading(false)
             toast.error('Verification Error', {
                 position: "top-center",

@@ -31,7 +31,7 @@ const Settings = () => {
   const token = localStorage.getItem("token")
 
   const profile = useSelector(state => state.getProfile)
-  console.log(profile, "profile")
+
   const userProfile = profile?.data?.users
 
   const togglePasswordVisibility = () => {
@@ -55,7 +55,7 @@ const Settings = () => {
     setStoreLoading(true)
     await api.post(appUrls?.CLOSE_STORE_URL)
     .then((res) => {
-        console.log(res, "res")
+     
         setStoreLoading(false)
         toast.success(`${res?.data?.message}`, {
             position: "top-center",
@@ -70,7 +70,7 @@ const Settings = () => {
         setOpen(false)
     })
     .catch((err) => {
-        console.log(err, "error")
+    
         setStoreLoading(false)
         toast.error(`${err?.data?.message}`, {
             position: "top-center",
@@ -89,7 +89,7 @@ const openStore = async () => {
     setStoreLoading(true)
     await api.post(appUrls?.OPEN_STORE_URL)
     .then((res) => {
-        console.log(res, "res")
+
         setStoreLoading(false)
         toast.success(`${res?.data?.message}`, {
             position: "top-center",
@@ -104,7 +104,7 @@ const openStore = async () => {
         setOpen(false)
     })
     .catch((err) => {
-        console.log(err, "error")
+
         setStoreLoading(false)
         toast.error(`${err?.data?.message}`, {
             position: "top-center",
@@ -152,7 +152,7 @@ const openStore = async () => {
       });
     })
     .catch((err) => {
-      console.log(err, "err")
+      // console.log(err, "err")
     })
   } 
 
@@ -276,7 +276,7 @@ const openStore = async () => {
                   validationSchema={formValidationSchema}
                   onSubmit={(values, action) => {
                       window.scrollTo(0, 0)
-                      console.log(values, "often")
+              
                       submitForm(values)
                       action.resetForm()
                   }}

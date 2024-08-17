@@ -92,7 +92,6 @@ const Login = () => {
                         validationSchema={formValidationSchema}
                         onSubmit={(values) => {
                             window.scrollTo(0, 0)
-                            console.log(values, "often")
                             submitForm(values)
                         }}
                         >

@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [barData, setBarData] = useState({})
 
   const userLogin = useSelector(state => state.userLogin)
-  console.log(userLogin, "mask")
+
 
   const dispatch = useDispatch()
 
@@ -41,10 +41,10 @@ const Dashboard = () => {
   }, [userData])
 
   const getAnalytics = useSelector(state => state.getAnalytics)
-  console.log(getAnalytics, "getAnalytics")
+
 
   const allOrders = useSelector(state => state.allOrders)
-  console.log(allOrders, "allOrders")
+
 
   const orderData = allOrders?.data?.data?.orders
 
@@ -53,11 +53,11 @@ const Dashboard = () => {
   const getGraphData = async () => {
     await api.post(appUrls?.FETCH_GRAPH_URL + `/${year}`)
     .then((res) => {
-      console.log(res, "magic")
+
       setBarData(res?.data)
     })
     .catch((err) => {
-      console.log(err, "err")
+     
     })
   }
 

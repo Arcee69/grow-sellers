@@ -46,12 +46,12 @@ const AddProducts = () => {
   //   })
   // }
 
-  console.log(productCategories, "productCategories[0]")
+  // console.log(productCategories, "productCategories[0]")
   const categories = productCategories?.data?.categories
 
   const [selected, setSelected] = useState(categories)
 
-  console.log(selected, "selected[0]")
+  // console.log(selected, "selected[0]")
 
   const navigate = useNavigate()
 
@@ -108,7 +108,7 @@ const AddProducts = () => {
 
   }
 
-  console.log(userImage, "userImage")
+
  
 
 

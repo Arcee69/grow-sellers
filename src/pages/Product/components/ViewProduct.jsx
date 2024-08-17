@@ -2,7 +2,7 @@ import React from 'react'
 import CloseIcon from "../../../assets/svg/closeIcon.svg"
 
 const ViewProduct = ({ handleClose, showData }) => {
-    console.log(showData, "showData")
+
   return (
     <div className='w-[491px] h-[462px] mt-[100px] py-[40px] px-5 overflow-y-auto gap-6 flex flex-col bg-[#fff] rounded-lg '>
         <div className='flex justify-end'>

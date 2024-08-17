@@ -8,13 +8,13 @@ import { appUrls } from '../../../services/urls'
 import { toast } from 'react-toastify'
 
 const DeleteProduct = ({ handleClose, deleteProductLoading, setDeleteProductLoading, showData }) => {
-    console.log(showData, "DODOD")
+   
 
     const deleteProduct = async () => {
         setDeleteProductLoading(true)
         await api.delete(`${appUrls?.DELETE_PRODUCTS_URL}/${showData?.id}`)
         .then((res) => {
-            console.log(res, "nothing")
+    
             setDeleteProductLoading(false)
             toast.success(`${res?.data?.message}`, {
                 position: "top-center",
@@ -29,7 +29,7 @@ const DeleteProduct = ({ handleClose, deleteProductLoading, setDeleteProductLoad
             handleClose()
         })
         .catch((err) => {
-            console.log(err, 'kiss')
+
             setDeleteProductLoading(false)
             if(err?.status === 500) {
                 toast.error(`Internal Server Error`, {

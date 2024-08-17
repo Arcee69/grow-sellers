@@ -49,7 +49,7 @@ const KycForm = ({ handleClose }) => {
                 }
             })
             setLoading(false)
-            console.log(response, "gapa")
+     
             toast.success(`${response?.data?.message}`, {
                 position: "top-center",
                 autoClose: 5000,
@@ -98,7 +98,7 @@ const KycForm = ({ handleClose }) => {
                 validationSchema={formValidationSchema}
                 onSubmit={(values) => {
                     window.scrollTo(0, 0)
-                    console.log(values, "often")
+             
                     submitForm(values)
                 }}
             >

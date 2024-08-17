@@ -30,7 +30,7 @@ const AddAccount = ({ handleClose }) => {
         try {
             const response = await api.post(appUrls?.ADD_BANK_URL, data)
             setLoading(false)
-            console.log(response, "gapa")
+   
             toast.success(`${response?.data?.message}`, {
                 position: "top-center",
                 autoClose: 5000,
@@ -45,7 +45,7 @@ const AddAccount = ({ handleClose }) => {
             handleClose();
         } catch(err) {
             setLoading(false)
-            console.log(err, "zana")
+     
             toast.error(`${err?.data?.message}`, {
                 position: "top-center",
                 autoClose: 5000,
@@ -81,7 +81,7 @@ const AddAccount = ({ handleClose }) => {
                 validationSchema={formValidationSchema}
                 onSubmit={(values, actions) => {
                     window.scrollTo(0, 0)
-                    console.log(values, "often")
+    
                     submitForm(values, actions)
                 }}
             >

@@ -14,7 +14,7 @@ const AllOrders = () => {
     }
 
     const allOrders = useSelector(state => state.allOrders)
-    console.log(allOrders, "allOrders")
+
 
     const data = allOrders?.data?.data?.orders
 

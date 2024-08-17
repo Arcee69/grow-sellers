@@ -12,7 +12,7 @@ export const ProtectRoutes = () => {
 
     const location = useLocation();
     const isAuthed = isObjectEmpty(JSON.parse(localStorage.getItem("userObj")))     //(data?.user);
-    console.log(isAuthed, "isAuthed")
+    // console.log(isAuthed, "isAuthed")
     return !isAuthed ? (
       <BoardLayout> 
         <Outlet />

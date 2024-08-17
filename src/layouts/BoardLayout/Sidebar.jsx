@@ -16,7 +16,6 @@ const Sidebar = () => {
     const navigate = useNavigate()
 
     const userLogin = useSelector(state => state.userLogin)
-    console.log(userLogin, "mask")
 
     const userData = userLogin?.data?.data
 

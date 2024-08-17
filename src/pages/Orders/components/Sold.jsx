@@ -9,7 +9,7 @@ const Sold = () => {
   const [currentData, setCurrentData] = useState([]);
 
   const getSoldItems = useSelector(state => state.getSoldItems)
-  console.log(getSoldItems, "getSoldItems")
+
 
   const data = getSoldItems?.data?.data?.orders
 

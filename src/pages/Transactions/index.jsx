@@ -26,7 +26,7 @@ const Sales = () => {
 
   const userLogin = useSelector(state => state.userLogin)
   const userData = userLogin?.data?.data
-  console.log(userData, "userData")
+  // console.log(userData, "userData")
   
 
   const dispatch = useDispatch()
@@ -38,7 +38,7 @@ const Sales = () => {
   const formatter = new Intl.NumberFormat('en-US');
 
   const allOrders = useSelector(state => state.allOrders)
-  console.log(allOrders, "allOrders")
+
 
   const orders = allOrders?.data?.data?.orders
 

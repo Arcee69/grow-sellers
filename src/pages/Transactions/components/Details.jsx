@@ -8,7 +8,7 @@ const Details = ({ handleClose }) => {
 
     const userLogin = useSelector(state => state.userLogin)
     const userData = userLogin?.data?.data
-    console.log(userData, "userData")
+    // console.log(userData, "userData")
 
   return (
     <div className='w-[491px] h-[462px] mt-[100px] py-[40px] px-[80px] gap-6 flex flex-col bg-[#fff] rounded-lg items-center'>

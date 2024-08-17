@@ -51,7 +51,7 @@ const Inventory = () => {
         setDelistLoading(true)
         await api.post(`${appUrls?.DELIST_PRODUCTS_URL}/${id}`)
         .then((res) => {
-            console.log(res, "nothing")
+          
             setDelistLoading(false)
             toast.success(`${res?.data?.message}`, {
                 position: "top-center",
@@ -65,7 +65,7 @@ const Inventory = () => {
             })
         })
         .catch((err) => {
-            console.log(err, 'kiss')
+          
             setDelistLoading(false)
             toast.error(`${err?.data?.message}`, {
                 position: "top-center",
@@ -83,7 +83,7 @@ const Inventory = () => {
    
 
     const allProducts = useSelector(state => state.allProducts)
-    console.log(allProducts, "allProducts")
+
     const products = allProducts?.data?.data?.products
 
 
