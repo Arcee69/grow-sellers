@@ -38,6 +38,7 @@ const Sales = () => {
   const formatter = new Intl.NumberFormat('en-US');
 
   const allOrders = useSelector(state => state.allOrders)
+  console.log(allOrders, "allOrders")
 
 
   const orders = allOrders?.data?.data?.orders
@@ -89,7 +90,7 @@ const Sales = () => {
             <div className='flex flex-col'>
               <p className='text-[#fff] font-inter text-xs'>Payment Pending Approval</p>
               <div className='items-center flex justify-between'>
-                <p className='font-inter text-[24px] text-[#fff] font-semibold'>₦{formatter.format(totalAmount)}</p>
+                <p className='font-inter text-[24px] text-[#fff] font-semibold'>₦{formatter.format(totalAmount || 0)}</p>
                 <p className='text-[#FFFFFF] font-inter text-xs'>From {orders?.length} Orders</p>
               </div>
             </div>

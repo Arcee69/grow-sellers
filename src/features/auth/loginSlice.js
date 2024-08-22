@@ -17,7 +17,6 @@ export const loginUser = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try {
             const res = await api.post(appUrls?.LOGIN_URL, data);
-            console.log(res, "paso")
             if (res?.status === 200) {
                 const { token, ...newObject } = res?.data;
                 localStorage.setItem("token", token);
