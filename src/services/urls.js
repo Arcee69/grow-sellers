@@ -13,6 +13,9 @@ export const appUrls = {
     FETCH_PRODUCTS_URL: "/product/my/store",  // /my-product
     DELIST_PRODUCTS_URL: "/product/delist",
     DELETE_PRODUCTS_URL: "/product/delete",
+    EDIT_PRODUCTS_URL: "/product/update",
+    EDIT_PRODUCTS_IMAGE_URL: "/product/update/images",
+    EDIT_PRODUCTS_THUMBNAIL_URL: "/product/update/thumbnail",
 
     //PROFILE ENDPOINTS
     FETCH_USER_PROFILE_URL: "/user/profile",

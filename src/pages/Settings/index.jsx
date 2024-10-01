@@ -226,7 +226,7 @@ const openStore = async () => {
             </div> */}
 
             <p className='text-[#091D10] text-base font-inter font-medium'>{userProfile?.first_name + " " + userProfile?.last_name}</p>
-            <p className='font-inter text-[#8B9890] text-sm uppercase'>{userProfile?.first_name + " " + userProfile?.last_name} STORE</p>
+            <p className='font-inter text-[#8B9890] text-sm uppercase'>{userProfile?.business_name} STORE</p>
           </div>
           <div className='flex flex-col gap-[27px] pt-[19px] px-6'>
             <div className='flex flex-col lg:flex-row items-center gap-5 lg:gap-[80px]'>

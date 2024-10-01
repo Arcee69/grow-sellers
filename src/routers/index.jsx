@@ -17,6 +17,7 @@ import { AuthProtectRoutes, ProtectRoutes } from './protectRoutes'
 import ResetConfirmation from '../pages/Auth/Password/ResetConfirmation'
 import ChangePassword from '../pages/Auth/Password/ChangePassword'
 import Success from '../pages/Auth/Password/Success'
+import EditProducts from '../pages/Product/components/EditProducts'
 
 
 
@@ -37,6 +38,7 @@ const Routers = () => {
             <Route path='/sales' element={<Sales />} />
             <Route path='/inventory' element={<Inventory />} />
             <Route path='/add-product' element={<AddProducts />} />
+            <Route path='/edit-product' element={<EditProducts />} />
             <Route path='/settings' element={<Settings />} />
         </Route>
     

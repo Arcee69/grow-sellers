@@ -19,7 +19,8 @@ import ModalPop from '../../components/modalPop'
 import ViewProduct from './components/ViewProduct'
 import DeleteProduct from './components/DeleteProduct'
 import { TbHttpDelete } from 'react-icons/tb'
-
+import { FaRegEdit } from 'react-icons/fa'
+import "./components/css/tooltip.css"
 
 const Inventory = () => {
     const [text, setText] = useState("")
@@ -190,10 +191,22 @@ const Inventory = () => {
                         </td> 
                         <td className='h-[70px] px-4'>
                             <div className='flex items-center gap-2'>
-                                <img src={Show} alt='Show' className='w-[30px] h-[30px]' onClick={() => {setShowProduct(true), setShowData(item)}}/>
-                                <img src={Bin} alt='Bin'  className='w-[30px] h-[30px] cursor-pointer' onClick={() => delistProduct(item?.id)}/>
-                                <TbHttpDelete className='text-[30px] cursor-pointer text-red-500' onClick={() => {setOpenDeleteProduct(true); setShowData(item)}} />
-                                {/* <img src={Bin} alt='Bin'  className='w-[30px] h-[30px] cursor-pointer' onClick={() => {setOpenDeleteProduct(true); setShowData(item)}}/> */}
+                                <div className='relative group'>
+                                    <img src={Show} alt='Show' className='w-[30px] h-[30px]' onClick={() => {setShowProduct(true), setShowData(item)}}/>
+                                    <span className='tooltip'>View</span>
+                                </div>
+                                <div className='relative group'>
+                                    <FaRegEdit className='text-[30px] cursor-pointer text-grey-500' onClick={() => navigate("/edit-product", {state: item})} />
+                                    <span className='tooltip'>Edit</span>
+                                </div>
+                                <div className='relative group'>
+                                    <img src={Bin} alt='Bin'  className='w-[30px] h-[30px] cursor-pointer' onClick={() => delistProduct(item?.id)}/>
+                                    <span className='tooltip'>Delist</span>
+                                </div>
+                                <div className='relative group'>
+                                    <TbHttpDelete className='text-[30px] cursor-pointer text-red-500' onClick={() => {setOpenDeleteProduct(true); setShowData(item)}} />
+                                    <span className='tooltip'>Delete</span>
+                                </div>
                             </div>
                         </td>       
 
