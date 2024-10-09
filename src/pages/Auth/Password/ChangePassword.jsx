@@ -30,23 +30,23 @@ const ChangePassword = () => {
 
     const formValidationSchema = Yup.object().shape({
         otp: Yup.string().required("Otp is Required"),
-        password: Yup.string().min(8, "Must Contain 8 Characters").required("Password is Required")
-        .matches(
-        /^(?=.*[a-z])/,
-        " Must Contain One Lowercase Character"
-        )
-        .matches(
-        /^(?=.*[A-Z])/,
-        "  Must Contain One Uppercase Character"
-        )
-        .matches(
-        /^(?=.*[0-9])/,
-        "  Must Contain One Number Character"
-        )
-        .matches(
-        /^(?=.*[!@#\$%\^&\*])/,
-        "  Must Contain  One Special Case Character"
-        ),
+        password: Yup.string().min(8, "Must Contain 8 Characters").required("Password is Required"),
+        // .matches(
+        // /^(?=.*[a-z])/,
+        // " Must Contain One Lowercase Character"
+        // )
+        // .matches(
+        // /^(?=.*[A-Z])/,
+        // "  Must Contain One Uppercase Character"
+        // )
+        // .matches(
+        // /^(?=.*[0-9])/,
+        // "  Must Contain One Number Character"
+        // )
+        // .matches(
+        // /^(?=.*[!@#\$%\^&\*])/,
+        // "  Must Contain  One Special Case Character"
+        // ),
         confirmPassword: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Confirm Password is required"),
@@ -140,9 +140,9 @@ const ChangePassword = () => {
                                             className="w-full text-[#000] placeholder-[#7F9286] font-inter  outline-none "
                                         />
                                     </div>
-                                    {errors?.otp && touched?.otp ? (
-                                    <div className='text-RED-_100 font-inter text-xs'>{errors?.otp}</div>
-                                    ) : null}
+                                    {errors?.otp && touched?.otp && (
+                                    <div className='text-[#f00] font-inter text-xs mt-1'>{errors?.otp}</div>
+                                    )}
                                 </div>
 
                                 <div className="flex flex-col w-full">
@@ -169,9 +169,9 @@ const ChangePassword = () => {
                                             />
                                         )}
                                     </div>
-                                    {errors?.password && touched?.password ? (
-                                        <div className='text-RED-_100 font-inter text-xs'>{errors?.password}</div>
-                                        ) : null}
+                                    {errors?.password && touched?.password && (
+                                        <div className='text-[#f00] font-inter text-xs mt-1'>{errors?.password}</div>
+                                    )}
                                 </div>
 
                                 <div className="flex flex-col w-full">
@@ -198,9 +198,9 @@ const ChangePassword = () => {
                                             />
                                         )}
                                     </div>
-                                    {errors?.confirmPassword && touched?.confirmPassword ? (
-                                        <div className='text-RED-_100 font-inter text-xs'>{errors?.confirmPassword}</div>
-                                        ) : null}
+                                    {errors?.confirmPassword && touched?.confirmPassword && (
+                                        <div className='text-[#f00] font-inter text-xs'>{errors?.confirmPassword}</div>
+                                        )}
                                 </div>
 
                             
@@ -234,3 +234,4 @@ const ChangePassword = () => {
 }
 
 export default ChangePassword
+
