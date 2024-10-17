@@ -102,7 +102,7 @@ const Header = () => {
             </div>
             <button 
                 type='button' 
-                className='w-[120px] h-[48px] rounded-lg bg-[#52BC77] flex items-center justify-center'
+                className='w-[120px] h-[48px] rounded-lg bg-[#52BC77] flex items-center cursor-pointer justify-center'
                 onClick={() => navigate("/register")}
             >
                 <p className='font-inter text-base text-[#fff]'>Sign up</p>
